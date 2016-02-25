@@ -28,7 +28,7 @@ function checkUser(req, res, next) {
   création d'une nouvelle issue
 */
 // POST /api/books
-router.post('/', checkUser, function(req, res, next) {
+router.post('/'/*, checkUser*/, function(req, res, next) {
 
   var issue = new Issue(req.body);
 

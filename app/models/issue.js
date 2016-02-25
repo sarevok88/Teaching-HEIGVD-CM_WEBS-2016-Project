@@ -7,11 +7,11 @@ var IssueSchema = new Schema({
   name: String,
   type: String, //lien avec les types
   statut: String, //en lien avec les status
-  localisation: Number,
+  localisation: {type: {type: String}, coordinates: [Number, Number]},
   description: String,
   photo: String,
   responsable: Schema.Types.ObjectId,
-  authorId: Schema.Types.ObjectId,
+  user: Schema.Types.ObjectId,
 });
 
 IssueSchema.virtual('date')
