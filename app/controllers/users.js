@@ -8,6 +8,12 @@ module.exports = function (app) {
 };
 
 /**
+  *TOdo
+  *Validations
+  *Requetes spéciales
+*/
+
+/**
  * @api {post} /users Create a user
  * @apiName CreateUser
  * @apiGroup Users
@@ -27,7 +33,8 @@ router.post('/', function (req, res, next) {
     res.send(createdUser);
   });
 });
-/*
+
+
 // GET /api/users
 router.get('/', function (req, res, next) {
 
@@ -104,4 +111,30 @@ router.delete('/:id', function (req, res, next) {
     res.sendStatus(204);
   });
 });
+
+// GET /api/users/:id
+/*
+router.get(req.query, function (req, res, next) {
+  req.get("nomduparam");
+
+  var userId = req.params.id;
+
+  User.findById(userId, function(err, user) {
+    if (err) {
+      res.status(500).send(err);
+      return;
+    } else if (!user) {
+      res.status(404).send('User not found');
+      return;
+    }
+
+    res.send(user);
+  });
+});
+
+/*
+
+GET User  /users?sort=nbrIssues Get the list of users who have created most issues.
+GET User  /issues?status=solved&user={id} Get the list of users who have solved most issues.
+GET user  /users?issues=unsolved&issues=rejected  Get the list of users who have the least assigned issues not yet solved or rejected.
 */
