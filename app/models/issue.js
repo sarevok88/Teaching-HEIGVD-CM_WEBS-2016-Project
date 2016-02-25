@@ -6,7 +6,7 @@ var mongoose = require('mongoose'),
 var IssueSchema = new Schema({
   name: String,
   type: String, //lien avec les types
-  statut: String, //en lien avec les status
+  status: String, //en lien avec les status
   localisation: {type: {type: String}, coordinates: [Number, Number]},
   description: String,
   photo: String,
