@@ -9,6 +9,7 @@ var IssueSchema = new Schema({
   statut: String, //en lien avec les status
   localisation: Number,
   description: String,
+  photo: String,
   responsable: Schema.Types.ObjectId,
   authorId: Schema.Types.ObjectId,
 });
