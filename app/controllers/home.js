@@ -8,11 +8,5 @@ module.exports = function (app) {
 };
 
 router.get('/', function (req, res, next) {
-  Issue.find(function (err, issues) {
-    if (err) return next(err);
-    res.render('index', {
-      title: 'Generator-Express MVC',
-      issues: issues
-    });
-  });
+  res.redirect('/apidoc');
 });
