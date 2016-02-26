@@ -40,11 +40,6 @@
     },
     "filename": "doc/example.js",
     "groupTitle": "Comments",
-    "sampleRequest": [
-      {
-        "url": "https://github.com/sarevok88/Teaching-HEIGVD-CM_WEBS-2016-Project/comments/:id"
-      }
-    ],
     "error": {
       "fields": {
         "Error 4xx": [
@@ -134,12 +129,7 @@
       ]
     },
     "filename": "doc/example.js",
-    "groupTitle": "Comments",
-    "sampleRequest": [
-      {
-        "url": "https://github.com/sarevok88/Teaching-HEIGVD-CM_WEBS-2016-Project/comments"
-      }
-    ]
+    "groupTitle": "Comments"
   },
   {
     "type": "get",
@@ -216,12 +206,7 @@
       ]
     },
     "filename": "doc/example.js",
-    "groupTitle": "Comments",
-    "sampleRequest": [
-      {
-        "url": "https://github.com/sarevok88/Teaching-HEIGVD-CM_WEBS-2016-Project/comments?issueId={id}"
-      }
-    ]
+    "groupTitle": "Comments"
   },
   {
     "type": "get",
@@ -305,12 +290,7 @@
       ]
     },
     "filename": "doc/example.js",
-    "groupTitle": "Comments",
-    "sampleRequest": [
-      {
-        "url": "https://github.com/sarevok88/Teaching-HEIGVD-CM_WEBS-2016-Project/comments?issueId={id}"
-      }
-    ]
+    "groupTitle": "Comments"
   },
   {
     "type": "post",
@@ -367,11 +347,6 @@
     },
     "filename": "doc/example.js",
     "groupTitle": "Comments",
-    "sampleRequest": [
-      {
-        "url": "https://github.com/sarevok88/Teaching-HEIGVD-CM_WEBS-2016-Project/comments"
-      }
-    ],
     "error": {
       "fields": {
         "Error 4xx": [
@@ -447,11 +422,6 @@
     },
     "filename": "doc/example.js",
     "groupTitle": "Comments",
-    "sampleRequest": [
-      {
-        "url": "https://github.com/sarevok88/Teaching-HEIGVD-CM_WEBS-2016-Project/comments/:id"
-      }
-    ],
     "error": {
       "fields": {
         "Error 4xx": [
@@ -513,11 +483,6 @@
     },
     "filename": "doc/example.js",
     "groupTitle": "Issues",
-    "sampleRequest": [
-      {
-        "url": "https://github.com/sarevok88/Teaching-HEIGVD-CM_WEBS-2016-Project/issues/:id"
-      }
-    ],
     "error": {
       "fields": {
         "Error 4xx": [
@@ -620,12 +585,7 @@
       ]
     },
     "filename": "doc/example.js",
-    "groupTitle": "Issues",
-    "sampleRequest": [
-      {
-        "url": "https://github.com/sarevok88/Teaching-HEIGVD-CM_WEBS-2016-Project/actions?issueId={id}"
-      }
-    ]
+    "groupTitle": "Issues"
   },
   {
     "type": "get",
@@ -786,12 +746,7 @@
       ]
     },
     "filename": "doc/example.js",
-    "groupTitle": "Issues",
-    "sampleRequest": [
-      {
-        "url": "https://github.com/sarevok88/Teaching-HEIGVD-CM_WEBS-2016-Project/issues/{id}"
-      }
-    ]
+    "groupTitle": "Issues"
   },
   {
     "type": "get",
@@ -946,12 +901,7 @@
       ]
     },
     "filename": "doc/example.js",
-    "groupTitle": "Issues",
-    "sampleRequest": [
-      {
-        "url": "https://github.com/sarevok88/Teaching-HEIGVD-CM_WEBS-2016-Project/issues"
-      }
-    ]
+    "groupTitle": "Issues"
   },
   {
     "type": "get",
@@ -1119,12 +1069,7 @@
       ]
     },
     "filename": "doc/example.js",
-    "groupTitle": "Issues",
-    "sampleRequest": [
-      {
-        "url": "https://github.com/sarevok88/Teaching-HEIGVD-CM_WEBS-2016-Project/issues?issuesType={type}"
-      }
-    ]
+    "groupTitle": "Issues"
   },
   {
     "type": "get",
@@ -1292,12 +1237,7 @@
       ]
     },
     "filename": "doc/example.js",
-    "groupTitle": "Issues",
-    "sampleRequest": [
-      {
-        "url": "https://github.com/sarevok88/Teaching-HEIGVD-CM_WEBS-2016-Project/issues?userId={id}"
-      }
-    ]
+    "groupTitle": "Issues"
   },
   {
     "type": "get",
@@ -1479,12 +1419,7 @@
       ]
     },
     "filename": "doc/example.js",
-    "groupTitle": "Issues",
-    "sampleRequest": [
-      {
-        "url": "https://github.com/sarevok88/Teaching-HEIGVD-CM_WEBS-2016-Project/issues?coordX={valeurX}&coordY={valeurY}&rad={valeurRadius}"
-      }
-    ]
+    "groupTitle": "Issues"
   },
   {
     "type": "get",
@@ -1659,12 +1594,7 @@
       ]
     },
     "filename": "doc/example.js",
-    "groupTitle": "Issues",
-    "sampleRequest": [
-      {
-        "url": "https://github.com/sarevok88/Teaching-HEIGVD-CM_WEBS-2016-Project/issues?startDate={date1}&endDate={date2}&status=solved"
-      }
-    ]
+    "groupTitle": "Issues"
   },
   {
     "type": "get",
@@ -1839,12 +1769,7 @@
       ]
     },
     "filename": "doc/example.js",
-    "groupTitle": "Issues",
-    "sampleRequest": [
-      {
-        "url": "https://github.com/sarevok88/Teaching-HEIGVD-CM_WEBS-2016-Project/issues?startDate={date1}&endDate={date2}&status=unsolved"
-      }
-    ]
+    "groupTitle": "Issues"
   },
   {
     "type": "post",
@@ -1978,11 +1903,6 @@
     },
     "filename": "doc/example.js",
     "groupTitle": "Issues",
-    "sampleRequest": [
-      {
-        "url": "https://github.com/sarevok88/Teaching-HEIGVD-CM_WEBS-2016-Project/issues"
-      }
-    ],
     "error": {
       "fields": {
         "Error 4xx": [
@@ -2135,11 +2055,6 @@
     },
     "filename": "doc/example.js",
     "groupTitle": "Issues",
-    "sampleRequest": [
-      {
-        "url": "https://github.com/sarevok88/Teaching-HEIGVD-CM_WEBS-2016-Project/issues/:id"
-      }
-    ],
     "error": {
       "fields": {
         "Error 4xx": [
@@ -2201,11 +2116,6 @@
     },
     "filename": "doc/example.js",
     "groupTitle": "Users",
-    "sampleRequest": [
-      {
-        "url": "https://github.com/sarevok88/Teaching-HEIGVD-CM_WEBS-2016-Project/user/:id"
-      }
-    ],
     "error": {
       "fields": {
         "Error 4xx": [
@@ -2323,12 +2233,7 @@
       ]
     },
     "filename": "doc/example.js",
-    "groupTitle": "Users",
-    "sampleRequest": [
-      {
-        "url": "https://github.com/sarevok88/Teaching-HEIGVD-CM_WEBS-2016-Project/users"
-      }
-    ]
+    "groupTitle": "Users"
   },
   {
     "type": "get",
@@ -2433,12 +2338,7 @@
       ]
     },
     "filename": "doc/example.js",
-    "groupTitle": "Users",
-    "sampleRequest": [
-      {
-        "url": "https://github.com/sarevok88/Teaching-HEIGVD-CM_WEBS-2016-Project/users/{id}"
-      }
-    ]
+    "groupTitle": "Users"
   },
   {
     "type": "get",
@@ -2530,12 +2430,7 @@
       ]
     },
     "filename": "doc/example.js",
-    "groupTitle": "Users",
-    "sampleRequest": [
-      {
-        "url": "https://github.com/sarevok88/Teaching-HEIGVD-CM_WEBS-2016-Project/users?issues=unsolved&issues=unrejected"
-      }
-    ]
+    "groupTitle": "Users"
   },
   {
     "type": "get",
@@ -2620,12 +2515,7 @@
       ]
     },
     "filename": "doc/example.js",
-    "groupTitle": "Users",
-    "sampleRequest": [
-      {
-        "url": "https://github.com/sarevok88/Teaching-HEIGVD-CM_WEBS-2016-Project/users?issues=solved"
-      }
-    ]
+    "groupTitle": "Users"
   },
   {
     "type": "get",
@@ -2730,12 +2620,7 @@
       ]
     },
     "filename": "doc/example.js",
-    "groupTitle": "Users",
-    "sampleRequest": [
-      {
-        "url": "https://github.com/sarevok88/Teaching-HEIGVD-CM_WEBS-2016-Project/users?issues=nbrIssuesCreated"
-      }
-    ]
+    "groupTitle": "Users"
   },
   {
     "type": "post",
@@ -2813,11 +2698,6 @@
     },
     "filename": "doc/example.js",
     "groupTitle": "Users",
-    "sampleRequest": [
-      {
-        "url": "https://github.com/sarevok88/Teaching-HEIGVD-CM_WEBS-2016-Project/user"
-      }
-    ],
     "error": {
       "fields": {
         "Error 4xx": [
@@ -2921,11 +2801,6 @@
     },
     "filename": "doc/example.js",
     "groupTitle": "Users",
-    "sampleRequest": [
-      {
-        "url": "https://github.com/sarevok88/Teaching-HEIGVD-CM_WEBS-2016-Project/user/:id"
-      }
-    ],
     "error": {
       "fields": {
         "Error 4xx": [
