@@ -5,10 +5,6 @@
  * @apiGroup Users
  *                
  * @apiDescription Fonction permettant d'obtenir toutes les users enregistré sur notre API. 
- *
- *
- * @apiExample Exemple d'utilisation:
- * curl -i http://localhost/users
  * 
  * 
  * @apiSuccess {Object[]} users               Liste des users. 
