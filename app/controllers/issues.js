@@ -61,12 +61,40 @@ router.post('/', checkUser, function(req, res, next) {
 
 
 /**
-* récupération de toutes les issues
+* GET /api/issues
+* si pas de param, recupération de toutes les issues, sinon recup des issues d'après les param
 */
-// GET /api/issues
-router.get('/', function (req, res, next) {
 
-  Issue.find(function (err, issues) {
+router.get('/', function (req, res, next) {
+  console.log(req.query);
+  var criteria = {};
+  // Filtre par issueType ?issueType={string} (aussi si plsr type)
+  if (typeof(req.query.issueType) == "object" && req.query.issueType.length) {
+    criteria.type = { $in: req.query.issueType };
+  } else if (req.query.issueType) {
+    criteria.type = req.query.issueType;
+  }
+
+  // Filtre par status ?status= (aussi si plsr status)
+  if (typeof(req.query.status) == "object" && req.query.format.length) {
+    criteria.status = { $in: req.query.status };
+  } else if (req.query.status) {
+    criteria.status = req.query.status;
+  }
+
+  //  Filtre par startDate ?startDate=
+  if (req.query.startDate) {
+    criteria.startDate = req.query.startDate;
+  }
+
+  //  Filtre par endDate ?endDate=
+  if (req.query.endDate) {
+    criteria.endDate = req.query.endDate;
+  }
+
+
+
+  Issue.find(criteria, function (err, issues) {
     if (err) {
       res.status(500).send(err);
       return;
