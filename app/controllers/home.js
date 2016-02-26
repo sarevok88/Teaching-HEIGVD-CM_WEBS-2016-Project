@@ -8,5 +8,5 @@ module.exports = function (app) {
 };
 
 router.get('/', function (req, res, next) {
-  res.redirect('/doc');
+  res.redirect('/apidoc');
 });
