@@ -11,6 +11,7 @@ var IssueSchema = new Schema({
   localisation: {type: {type: String}, coordinates: [Number, Number]},
   description: String,
   photo: String,
+  action: [String],
   responsable: Schema.Types.ObjectId,
   user: Schema.Types.ObjectId,
 });
