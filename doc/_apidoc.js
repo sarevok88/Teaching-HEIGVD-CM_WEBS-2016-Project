@@ -14,15 +14,59 @@
  * @apiDefine CreateElementError
  * @apiVersion 0.1.0
  *
- * @apiError UserNameTooShort Minimum of 5 characters required.
+ * @apiError Error500-1 Le format de données saisies n'est pas valide.
  *
- * @apiErrorExample  Response (example):
- *     HTTP/1.1 400 Bad Request
+ * @apiErrorExample  Response (Error500-1):
+ *     Error 500: Internal Server Error
  *     {
- *       "error": "Le format ne correspond pas au modèle"
- *     }
+ *       "message": "Element validation failed"
+ *     }  
  */
 
+/**
+ * @apiDefine IdNotFound
+ * @apiVersion 0.1.0
+ *
+ * @apiError Error500-2 L'<code>id</code> de l'élément saisi n'a pas été trouvé.
+ *
+ * @apiErrorExample  Response (Error500-2):
+ *     Error 500: Internal Server Error
+ *     {
+ *       "message": "Cast to ObjectId failed for value \":id\" at path \"_id\"
+ *     }  
+ */
 
+/**
+ * @apiDefine BadRequest
+ * @apiVersion 0.1.0
+ *
+ * @apiError Error400-1 L'<code>id</code> que vous recherchez n'éxiste pas.
+ *
+ * @apiErrorExample  Response (Error400-1):
+ *     Error 400: Bad Request
+ *     {
+ *       "message": "No element with ID={value}"
+ *     }
+ *     
+ *     
+ *     
+ *     
+ */
 
+/**
+ * @apiDefine UserRequired
+ * @apiVersion 0.1.0
+ *
+ * @apiError Error400-2 L'<code>id</code> du user est nécessaire.
+ *
+ * @apiErrorExample  Response (Error400-2):
+ *     Error 400: Bad Request
+ *     {
+ *       User ID is required
+ *     }
+ *     
+ *     
+ *     
+ *     
+ */
 

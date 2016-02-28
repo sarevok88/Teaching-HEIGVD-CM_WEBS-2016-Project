@@ -40,21 +40,26 @@ define({ "api": [
     },
     "filename": "doc/example.js",
     "groupTitle": "Comments",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/api/comments/:id"
+      }
+    ],
     "error": {
       "fields": {
         "Error 4xx": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "UserNameTooShort",
-            "description": "<p>Minimum of 5 characters required.</p>"
+            "field": "Error500-1",
+            "description": "<p>Le format de données saisies n'est pas valide.</p>"
           }
         ]
       },
       "examples": [
         {
-          "title": "Response (example):",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"Le format ne correspond pas au modèle\"\n}",
+          "title": "Response (Error500-1):",
+          "content": "Error 500: Internal Server Error\n{\n  \"message\": \"Element validation failed\"\n}",
           "type": "json"
         }
       ]
@@ -129,7 +134,12 @@ define({ "api": [
       ]
     },
     "filename": "doc/example.js",
-    "groupTitle": "Comments"
+    "groupTitle": "Comments",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/api/comments"
+      }
+    ]
   },
   {
     "type": "get",
@@ -206,7 +216,12 @@ define({ "api": [
       ]
     },
     "filename": "doc/example.js",
-    "groupTitle": "Comments"
+    "groupTitle": "Comments",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/api/comments?issueId={id}"
+      }
+    ]
   },
   {
     "type": "get",
@@ -290,7 +305,12 @@ define({ "api": [
       ]
     },
     "filename": "doc/example.js",
-    "groupTitle": "Comments"
+    "groupTitle": "Comments",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/api/comments?issueId={id}"
+      }
+    ]
   },
   {
     "type": "post",
@@ -347,21 +367,26 @@ define({ "api": [
     },
     "filename": "doc/example.js",
     "groupTitle": "Comments",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/api/comments"
+      }
+    ],
     "error": {
       "fields": {
         "Error 4xx": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "UserNameTooShort",
-            "description": "<p>Minimum of 5 characters required.</p>"
+            "field": "Error500-1",
+            "description": "<p>Le format de données saisies n'est pas valide.</p>"
           }
         ]
       },
       "examples": [
         {
-          "title": "Response (example):",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"Le format ne correspond pas au modèle\"\n}",
+          "title": "Response (Error500-1):",
+          "content": "Error 500: Internal Server Error\n{\n  \"message\": \"Element validation failed\"\n}",
           "type": "json"
         }
       ]
@@ -422,21 +447,26 @@ define({ "api": [
     },
     "filename": "doc/example.js",
     "groupTitle": "Comments",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/api/comments/:id"
+      }
+    ],
     "error": {
       "fields": {
         "Error 4xx": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "UserNameTooShort",
-            "description": "<p>Minimum of 5 characters required.</p>"
+            "field": "Error500-1",
+            "description": "<p>Le format de données saisies n'est pas valide.</p>"
           }
         ]
       },
       "examples": [
         {
-          "title": "Response (example):",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"Le format ne correspond pas au modèle\"\n}",
+          "title": "Response (Error500-1):",
+          "content": "Error 500: Internal Server Error\n{\n  \"message\": \"Element validation failed\"\n}",
           "type": "json"
         }
       ]
@@ -483,21 +513,26 @@ define({ "api": [
     },
     "filename": "doc/example.js",
     "groupTitle": "Issues",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/api/issues/:id"
+      }
+    ],
     "error": {
       "fields": {
         "Error 4xx": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "UserNameTooShort",
-            "description": "<p>Minimum of 5 characters required.</p>"
+            "field": "Error500-1",
+            "description": "<p>Le format de données saisies n'est pas valide.</p>"
           }
         ]
       },
       "examples": [
         {
-          "title": "Response (example):",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"Le format ne correspond pas au modèle\"\n}",
+          "title": "Response (Error500-1):",
+          "content": "Error 500: Internal Server Error\n{\n  \"message\": \"Element validation failed\"\n}",
           "type": "json"
         }
       ]
@@ -585,11 +620,16 @@ define({ "api": [
       ]
     },
     "filename": "doc/example.js",
-    "groupTitle": "Issues"
+    "groupTitle": "Issues",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/api/actions?issueId={id}"
+      }
+    ]
   },
   {
     "type": "get",
-    "url": "/issues/{id}",
+    "url": "/issues/:id",
     "title": "02. Get issues via ID",
     "version": "0.1.0",
     "name": "GetIssueById",
@@ -600,9 +640,9 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "Nombre",
+            "type": "String",
             "optional": false,
-            "field": "id",
+            "field": "_id",
             "description": "<p>Identifiant unique de l'issue.</p>"
           }
         ]
@@ -611,7 +651,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Exemple d'utilisation:",
-        "content": "curl -i http://localhost/issue/01",
+        "content": "http://localhost:3000/api/issues/56d2d706e76014600d42f982",
         "type": "json"
       }
     ],
@@ -620,9 +660,9 @@ define({ "api": [
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "String",
             "optional": false,
-            "field": "id",
+            "field": "_id",
             "description": "<p>Id de l'issue.</p>"
           },
           {
@@ -643,15 +683,36 @@ define({ "api": [
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "issues.tags",
-            "description": "<p>Tags de l'issue.</p>"
+            "field": "status",
+            "description": "<p>Statut de l'issue.</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "status",
-            "description": "<p>Statut de l'issue.</p>"
+            "field": "descritpion",
+            "description": "<p>Description de l'issues.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "photo",
+            "description": "<p>Lien vers l'image présentant l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "user",
+            "description": "<p>Id du user signalant l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "action",
+            "description": "<p>Tableau d'information liées au actions effectuées.</p>"
           },
           {
             "group": "Success 200",
@@ -678,50 +739,15 @@ define({ "api": [
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "descritpion",
-            "description": "<p>Description de l'issues.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "photo",
-            "description": "<p>Lien vers l'image présentant l'issue.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object[]",
-            "optional": false,
-            "field": "issues.action",
-            "description": "<p>Tableau d'information liées au actions entreprises.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "object[]",
-            "optional": false,
             "field": "responsable",
             "description": "<p>Information du user s'occupant de l'issue.</p>"
           },
           {
             "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "responsable.id",
-            "description": "<p>Id du user responsable de l'issue.</p>"
-          },
-          {
-            "group": "Success 200",
             "type": "object[]",
             "optional": false,
-            "field": "user",
-            "description": "<p>Information du user signalant l'issue.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "user.id",
-            "description": "<p>Id du user signalant l'issue.</p>"
+            "field": "tags",
+            "description": "<p>Tableau des tags liés à l'issue.</p>"
           }
         ]
       }
@@ -732,21 +758,26 @@ define({ "api": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "IssueNotFound",
-            "description": "<p>L'<code>id</code> de l'issue saisie n'a pas été trouvé.</p>"
+            "field": "Error500",
+            "description": "<p>L'<code>id</code> du de l'issue saisie n'a pas été trouvé.</p>"
           }
         ]
       },
       "examples": [
         {
-          "title": "Réponse (exemple):",
-          "content": "HTTP/1.1 404 Not Found\n{\n  \"error\": \"Issue not found\"\n}",
+          "title": "Réponse (Error 500):",
+          "content": "Error 500: Internal Server Error\n{\n  \"message\": \"Issue not found\"\n}",
           "type": "json"
         }
       ]
     },
     "filename": "doc/example.js",
-    "groupTitle": "Issues"
+    "groupTitle": "Issues",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/api/issues/:id"
+      }
+    ]
   },
   {
     "type": "get",
@@ -756,13 +787,6 @@ define({ "api": [
     "name": "GetIssues",
     "group": "Issues",
     "description": "<p>Fonction permettant d'obtenir toutes les issues enregistrée sur notre API.</p>",
-    "examples": [
-      {
-        "title": "Exemple d'utilisation:",
-        "content": "curl -i http://localhost/issues",
-        "type": "json"
-      }
-    ],
     "success": {
       "fields": {
         "Success 200": [
@@ -775,9 +799,9 @@ define({ "api": [
           },
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "String",
             "optional": false,
-            "field": "issues.id",
+            "field": "issues._id",
             "description": "<p>Id de l'issue.</p>"
           },
           {
@@ -798,15 +822,36 @@ define({ "api": [
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "issues.tags",
-            "description": "<p>Tags de l'issue.</p>"
+            "field": "issues.status",
+            "description": "<p>Statut de l'issue.</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "issues.status",
-            "description": "<p>Statut de l'issue.</p>"
+            "field": "issues.descritpion",
+            "description": "<p>Description de l'issues.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "issues.photo",
+            "description": "<p>Lien vers l'image présentant l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "issues.user",
+            "description": "<p>Id du user signalant l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "issues.action",
+            "description": "<p>Tableau d'information liées au actions effectuées.</p>"
           },
           {
             "group": "Success 200",
@@ -833,50 +878,15 @@ define({ "api": [
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "issues.descritpion",
-            "description": "<p>Description de l'issues.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "issues.photo",
-            "description": "<p>Lien vers l'image présentant l'issue.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object[]",
-            "optional": false,
-            "field": "issues.action",
-            "description": "<p>Tableau d'information liées au actions entreprises.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "object[]",
-            "optional": false,
             "field": "issues.responsable",
             "description": "<p>Information du user s'occupant de l'issue.</p>"
           },
           {
             "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "issues.responsable.id",
-            "description": "<p>Id du user responsable de l'issue.</p>"
-          },
-          {
-            "group": "Success 200",
             "type": "object[]",
             "optional": false,
-            "field": "issues.user",
-            "description": "<p>Information du user signalant l'issue.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "issues.user.id",
-            "description": "<p>Id du user signalant l'issue.</p>"
+            "field": "issues.tags",
+            "description": "<p>Tableau des tags liés à l'issue.</p>"
           }
         ]
       }
@@ -887,21 +897,26 @@ define({ "api": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "Issue",
-            "description": "<p>(s)NotFound   Il n'y a pas d'issue sur votre base de donnée.</p>"
+            "field": "NoIssueFound",
+            "description": "<p>Il n'y a pas d'Issue sur votre base de donnée.</p>"
           }
         ]
       },
       "examples": [
         {
-          "title": "Réponse (exemple):",
-          "content": "HTTP/1.1 404 Not Found\n{\n  \"error\": \"Issue not found\"\n}",
+          "title": "Réponse (exemple):     ",
+          "content": "[]",
           "type": "json"
         }
       ]
     },
     "filename": "doc/example.js",
-    "groupTitle": "Issues"
+    "groupTitle": "Issues",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/api/issues"
+      }
+    ]
   },
   {
     "type": "get",
@@ -1069,7 +1084,12 @@ define({ "api": [
       ]
     },
     "filename": "doc/example.js",
-    "groupTitle": "Issues"
+    "groupTitle": "Issues",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/api/issues?issuesType={type}"
+      }
+    ]
   },
   {
     "type": "get",
@@ -1237,7 +1257,12 @@ define({ "api": [
       ]
     },
     "filename": "doc/example.js",
-    "groupTitle": "Issues"
+    "groupTitle": "Issues",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/api/issues?userId={id}"
+      }
+    ]
   },
   {
     "type": "get",
@@ -1419,7 +1444,12 @@ define({ "api": [
       ]
     },
     "filename": "doc/example.js",
-    "groupTitle": "Issues"
+    "groupTitle": "Issues",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/api/issues?coordX={valeurX}&coordY={valeurY}&rad={valeurRadius}"
+      }
+    ]
   },
   {
     "type": "get",
@@ -1594,7 +1624,12 @@ define({ "api": [
       ]
     },
     "filename": "doc/example.js",
-    "groupTitle": "Issues"
+    "groupTitle": "Issues",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/api/issues?startDate={date1}&endDate={date2}&status=solved"
+      }
+    ]
   },
   {
     "type": "get",
@@ -1769,7 +1804,12 @@ define({ "api": [
       ]
     },
     "filename": "doc/example.js",
-    "groupTitle": "Issues"
+    "groupTitle": "Issues",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/api/issues?startDate={date1}&endDate={date2}&status=unsolved"
+      }
+    ]
   },
   {
     "type": "post",
@@ -1805,15 +1845,15 @@ define({ "api": [
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "issues.tags",
-            "description": "<p>Tags de l'issue.</p>"
+            "field": "status",
+            "description": "<p>Statut de l'issue.</p>"
           },
           {
             "group": "Parameter",
-            "type": "String",
+            "type": "object[]",
             "optional": false,
-            "field": "status",
-            "description": "<p>Statut de l'issue.</p>"
+            "field": "tags",
+            "description": "<p>Tags de l'issue.</p>"
           },
           {
             "group": "Parameter",
@@ -1852,38 +1892,17 @@ define({ "api": [
           },
           {
             "group": "Parameter",
-            "type": "Object[]",
-            "optional": false,
-            "field": "issues.action",
-            "description": "<p>Tableau d'information liées au actions entreprises.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "object[]",
-            "optional": false,
-            "field": "responsable",
-            "description": "<p>Information du user s'occupant de l'issue.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "responsable.id",
-            "description": "<p>Id du user responsable de l'issue.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "object[]",
+            "type": "String",
             "optional": false,
             "field": "user",
-            "description": "<p>Information du user signalant l'issue.</p>"
+            "description": "<p>Id du user signalant l'issue.</p>"
           },
           {
             "group": "Parameter",
-            "type": "Number",
+            "type": "Object[]",
             "optional": false,
-            "field": "user.id",
-            "description": "<p>Id du user signalant l'issue.</p>"
+            "field": "action",
+            "description": "<p>Tableau d'information liées au actions entreprises.</p>"
           }
         ]
       }
@@ -1893,31 +1912,135 @@ define({ "api": [
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "String",
             "optional": false,
-            "field": "id",
-            "description": "<p>Id de la nouvelle issue.</p>"
+            "field": "name",
+            "description": "<p>Nom de l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "type",
+            "description": "<p>Type de l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Statut de l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "descritpion",
+            "description": "<p>Description de l'issues.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "photo",
+            "description": "<p>Lien vers l'image présentant l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "user",
+            "description": "<p>Id du user signalant l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>Id de l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "action",
+            "description": "<p>Tableau d'information liées au actions entreprises.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "object[]",
+            "optional": false,
+            "field": "localisation",
+            "description": "<p>Tableau d'informations liées  à la localisation.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "localisation.type",
+            "description": "<p>Type de géomètrie.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "object[]",
+            "optional": false,
+            "field": "localisation.coordinates",
+            "description": "<p>Tableau d'informations liées  aux coordonées.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "object[]",
+            "optional": false,
+            "field": "tags",
+            "description": "<p>Tags de l'issue.</p>"
           }
         ]
       }
     },
     "filename": "doc/example.js",
     "groupTitle": "Issues",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/api/issues"
+      }
+    ],
     "error": {
       "fields": {
         "Error 4xx": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "UserNameTooShort",
-            "description": "<p>Minimum of 5 characters required.</p>"
+            "field": "Error500-1",
+            "description": "<p>Le format de données saisies n'est pas valide.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Error400-1",
+            "description": "<p>L'<code>id</code> que vous recherchez n'éxiste pas.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Error400-2",
+            "description": "<p>L'<code>id</code> du user est nécessaire.</p>"
           }
         ]
       },
       "examples": [
         {
-          "title": "Response (example):",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"Le format ne correspond pas au modèle\"\n}",
+          "title": "Response (Error500-1):",
+          "content": "Error 500: Internal Server Error\n{\n  \"message\": \"Element validation failed\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Response (Error400-1):",
+          "content": "Error 400: Bad Request\n{\n  \"message\": \"No element with ID={value}\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Response (Error400-2):",
+          "content": "Error 400: Bad Request\n{\n  User ID is required\n}",
           "type": "json"
         }
       ]
@@ -2055,21 +2178,26 @@ define({ "api": [
     },
     "filename": "doc/example.js",
     "groupTitle": "Issues",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/api/issues/:id"
+      }
+    ],
     "error": {
       "fields": {
         "Error 4xx": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "UserNameTooShort",
-            "description": "<p>Minimum of 5 characters required.</p>"
+            "field": "Error500-1",
+            "description": "<p>Le format de données saisies n'est pas valide.</p>"
           }
         ]
       },
       "examples": [
         {
-          "title": "Response (example):",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"Le format ne correspond pas au modèle\"\n}",
+          "title": "Response (Error500-1):",
+          "content": "Error 500: Internal Server Error\n{\n  \"message\": \"Element validation failed\"\n}",
           "type": "json"
         }
       ]
@@ -2077,7 +2205,7 @@ define({ "api": [
   },
   {
     "type": "delete",
-    "url": "/user/:id",
+    "url": "/users/:id",
     "title": "08. Supprimer un User éxistant.",
     "version": "0.1.0",
     "name": "DeleteUser",
@@ -2101,36 +2229,28 @@ define({ "api": [
         ]
       }
     },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "id",
-            "description": "<p>Id du user supprimer.</p>"
-          }
-        ]
-      }
-    },
     "filename": "doc/example.js",
     "groupTitle": "Users",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/api/users/:id"
+      }
+    ],
     "error": {
       "fields": {
         "Error 4xx": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "UserNameTooShort",
-            "description": "<p>Minimum of 5 characters required.</p>"
+            "field": "Error500-2",
+            "description": "<p>L'<code>id</code> de l'élément saisi n'a pas été trouvé.</p>"
           }
         ]
       },
       "examples": [
         {
-          "title": "Response (example):",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"Le format ne correspond pas au modèle\"\n}",
+          "title": "Response (Error500-2):",
+          "content": "Error 500: Internal Server Error\n{\n  \"message\": \"Cast to ObjectId failed for value \\\":id\\\" at path \\\"_id\\\"\n}",
           "type": "json"
         }
       ]
@@ -2143,14 +2263,7 @@ define({ "api": [
     "version": "0.1.0",
     "name": "GetUser",
     "group": "Users",
-    "description": "<p>Fonction permettant d'obtenir toutes les users enregistré sur notre API.</p>",
-    "examples": [
-      {
-        "title": "Exemple d'utilisation:",
-        "content": "curl -i http://localhost/users",
-        "type": "json"
-      }
-    ],
+    "description": "<p>Fonction permettant d'obtenir tous les users enregistré sur notre API.</p>",
     "success": {
       "fields": {
         "Success 200": [
@@ -2163,7 +2276,7 @@ define({ "api": [
           },
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "String",
             "optional": false,
             "field": "users.id",
             "description": "<p>Id du user.</p>"
@@ -2172,14 +2285,14 @@ define({ "api": [
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "users.firstName",
+            "field": "users.forname",
             "description": "<p>Prénom du User.</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "users.name",
+            "field": "users.surname",
             "description": "<p>Nom du User.</p>"
           },
           {
@@ -2193,22 +2306,22 @@ define({ "api": [
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "users.email",
-            "description": "<p>Email du User.</p>"
+            "field": "users.dob",
+            "description": "<p>Date de naissance du User.</p>"
           },
           {
             "group": "Success 200",
             "type": "Date",
             "optional": false,
-            "field": "users.birth",
-            "description": "<p>Date de naissance du User.</p>"
+            "field": "users.email",
+            "description": "<p>Email du User.</p>"
           },
           {
             "group": "Success 200",
-            "type": "String",
+            "type": "Object[]",
             "optional": false,
             "field": "users.role",
-            "description": "<p>Role du User (staff ou citoyen).</p>"
+            "description": "<p>Liste des Roles du User.</p>"
           }
         ]
       }
@@ -2219,25 +2332,30 @@ define({ "api": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "User",
-            "description": "<p>(s)NotFound   Il n'y a pas de User sur votre base de donnée.</p>"
+            "field": "NoUsersFound",
+            "description": "<p>Il n'y a pas de User sur votre base de donnée.</p>"
           }
         ]
       },
       "examples": [
         {
-          "title": "Réponse (exemple):",
-          "content": "HTTP/1.1 404 Not Found\n{\n  \"error\": \"User not found\"\n}",
+          "title": "Réponse (exemple):     ",
+          "content": "[]",
           "type": "json"
         }
       ]
     },
     "filename": "doc/example.js",
-    "groupTitle": "Users"
+    "groupTitle": "Users",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/api/users"
+      }
+    ]
   },
   {
     "type": "get",
-    "url": "/users/{id}",
+    "url": "/users/:id",
     "title": "02. Get user via ID",
     "version": "0.1.0",
     "name": "GetUserById",
@@ -2248,7 +2366,7 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "Nombre",
+            "type": "String",
             "optional": false,
             "field": "id",
             "description": "<p>Identifiant unique des Users.</p>"
@@ -2259,7 +2377,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Exemple d'utilisation:",
-        "content": "curl -i http://localhost/user/01",
+        "content": "http://localhost:3000/api/users/56d05eefa0b1214c16facb19",
         "type": "json"
       }
     ],
@@ -2268,7 +2386,7 @@ define({ "api": [
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "String",
             "optional": false,
             "field": "id",
             "description": "<p>Id du user.</p>"
@@ -2277,14 +2395,14 @@ define({ "api": [
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "firstName",
+            "field": "forname",
             "description": "<p>Prénom du User.</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "name",
+            "field": "surname",
             "description": "<p>Nom du User.</p>"
           },
           {
@@ -2298,19 +2416,19 @@ define({ "api": [
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "email",
-            "description": "<p>Email du User.</p>"
+            "field": "dob",
+            "description": "<p>Date de naissance du User.</p>"
           },
           {
             "group": "Success 200",
             "type": "Date",
             "optional": false,
-            "field": "birth",
-            "description": "<p>Date de naissance du User.</p>"
+            "field": "email",
+            "description": "<p>Email du User.</p>"
           },
           {
             "group": "Success 200",
-            "type": "String",
+            "type": "Object[]",
             "optional": false,
             "field": "role",
             "description": "<p>Role du User (staff ou citoyen).</p>"
@@ -2324,21 +2442,26 @@ define({ "api": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "UserNotFound",
+            "field": "Error500",
             "description": "<p>L'<code>id</code> du User saisi n'a pas été trouvé.</p>"
           }
         ]
       },
       "examples": [
         {
-          "title": "Réponse (exemple):",
-          "content": "HTTP/1.1 404 Not Found\n{\n  \"error\": \"User not found\"\n}",
+          "title": "Réponse (Error 500):",
+          "content": "Error 500: Internal Server Error\n{\n  \"message\": \"Cast to ObjectId failed for value \\\"{value}\\\" at path \\\"_id\\\"\"\n}",
           "type": "json"
         }
       ]
     },
     "filename": "doc/example.js",
-    "groupTitle": "Users"
+    "groupTitle": "Users",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/api/users/:id"
+      }
+    ]
   },
   {
     "type": "get",
@@ -2430,7 +2553,12 @@ define({ "api": [
       ]
     },
     "filename": "doc/example.js",
-    "groupTitle": "Users"
+    "groupTitle": "Users",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/api/users?issues=unsolved&issues=unrejected"
+      }
+    ]
   },
   {
     "type": "get",
@@ -2515,7 +2643,12 @@ define({ "api": [
       ]
     },
     "filename": "doc/example.js",
-    "groupTitle": "Users"
+    "groupTitle": "Users",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/api/users?issues=solved"
+      }
+    ]
   },
   {
     "type": "get",
@@ -2620,11 +2753,16 @@ define({ "api": [
       ]
     },
     "filename": "doc/example.js",
-    "groupTitle": "Users"
+    "groupTitle": "Users",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/api/users?issues=nbrIssuesCreated"
+      }
+    ]
   },
   {
     "type": "post",
-    "url": "/user",
+    "url": "/users",
     "title": "06. Créer un nouveau User",
     "version": "0.1.0",
     "name": "PostUser",
@@ -2642,14 +2780,14 @@ define({ "api": [
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "firstName",
+            "field": "forname",
             "description": "<p>Prénom du User.</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "name",
+            "field": "surname",
             "description": "<p>Nom du User.</p>"
           },
           {
@@ -2663,19 +2801,19 @@ define({ "api": [
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "email",
-            "description": "<p>Email du User.</p>"
+            "field": "dob",
+            "description": "<p>Date de naissance du User.</p>"
           },
           {
             "group": "Parameter",
             "type": "Date",
             "optional": false,
-            "field": "birth",
-            "description": "<p>Date de naissance du User.</p>"
+            "field": "email",
+            "description": "<p>Email du User.</p>"
           },
           {
             "group": "Parameter",
-            "type": "String",
+            "type": "Object[]",
             "optional": false,
             "field": "role",
             "description": "<p>Role du User (staff ou citoyen).</p>"
@@ -2688,31 +2826,78 @@ define({ "api": [
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "String",
+            "optional": false,
+            "field": "forname",
+            "description": "<p>Prénom du nouvel utilisateur.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "surname",
+            "description": "<p>Nom du nouvel utilisateur.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "nickname",
+            "description": "<p>Pseudonyme du nouvel utilisateur.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "dob",
+            "description": "<p>Date de naissance du nouvel utilisateur (jj-mm-aaaa).</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": "<p>Email du nouvel utilisateur.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
             "optional": false,
             "field": "id",
             "description": "<p>Id du nouvel utilisateur.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "role",
+            "description": "<p>Role du nouvel utilisateur.</p>"
           }
         ]
       }
     },
     "filename": "doc/example.js",
     "groupTitle": "Users",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/api/users"
+      }
+    ],
     "error": {
       "fields": {
         "Error 4xx": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "UserNameTooShort",
-            "description": "<p>Minimum of 5 characters required.</p>"
+            "field": "Error500-1",
+            "description": "<p>Le format de données saisies n'est pas valide.</p>"
           }
         ]
       },
       "examples": [
         {
-          "title": "Response (example):",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"Le format ne correspond pas au modèle\"\n}",
+          "title": "Response (Error500-1):",
+          "content": "Error 500: Internal Server Error\n{\n  \"message\": \"Element validation failed\"\n}",
           "type": "json"
         }
       ]
@@ -2720,7 +2905,7 @@ define({ "api": [
   },
   {
     "type": "put",
-    "url": "/user/:id",
+    "url": "/users/:id",
     "title": "07. Modifier un User éxistant.",
     "version": "0.1.0",
     "name": "PutUser",
@@ -2736,52 +2921,52 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "Number",
+            "type": "String",
             "optional": false,
             "field": "id",
-            "description": "<p>Id du user.</p>"
+            "description": "<p>Id du User.</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "firstName",
-            "description": "<p>Prénom du User.</p>"
+            "field": "forname",
+            "description": "<p>Nouveau prénom du User.</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "name",
-            "description": "<p>Nom du User.</p>"
+            "field": "surname",
+            "description": "<p>Nouveau nom du User.</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
             "field": "nickname",
-            "description": "<p>Pseudonyme du User.</p>"
+            "description": "<p>Nouveau pseudonyme du User.</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "email",
-            "description": "<p>Email du User.</p>"
+            "field": "dob",
+            "description": "<p>Nouvelle date de naissance du User.</p>"
           },
           {
             "group": "Parameter",
             "type": "Date",
             "optional": false,
-            "field": "birth",
-            "description": "<p>Date de naissance du User.</p>"
+            "field": "email",
+            "description": "<p>Nouvel email du User.</p>"
           },
           {
             "group": "Parameter",
-            "type": "String",
+            "type": "Object[]",
             "optional": false,
             "field": "role",
-            "description": "<p>Role du User (staff ou citoyen).</p>"
+            "description": "<p>Nouveau role du User (staff ou citoyen).</p>"
           }
         ]
       }
@@ -2791,31 +2976,89 @@ define({ "api": [
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "String",
+            "optional": false,
+            "field": "forname",
+            "description": "<p>Prénom à jour de l'utilisateur.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "surname",
+            "description": "<p>Nom à jour de l'utilisateur.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "nickname",
+            "description": "<p>Pseudonyme à jour de l'utilisateur.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "dob",
+            "description": "<p>Date de naissance à jour de l'utilisateur (jj-mm-aaaa).</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": "<p>Email à jour de l'utilisateur.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
             "optional": false,
             "field": "id",
-            "description": "<p>Id du user mis à jour.</p>"
+            "description": "<p>Id à jour de l'utilisateur.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "role",
+            "description": "<p>Role à jour de l'utilisateur.</p>"
           }
         ]
       }
     },
     "filename": "doc/example.js",
     "groupTitle": "Users",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/api/users/:id"
+      }
+    ],
     "error": {
       "fields": {
         "Error 4xx": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "UserNameTooShort",
-            "description": "<p>Minimum of 5 characters required.</p>"
+            "field": "Error500-1",
+            "description": "<p>Le format de données saisies n'est pas valide.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Error500-2",
+            "description": "<p>L'<code>id</code> de l'élément saisi n'a pas été trouvé.</p>"
           }
         ]
       },
       "examples": [
         {
-          "title": "Response (example):",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"Le format ne correspond pas au modèle\"\n}",
+          "title": "Response (Error500-1):",
+          "content": "Error 500: Internal Server Error\n{\n  \"message\": \"Element validation failed\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Response (Error500-2):",
+          "content": "Error 500: Internal Server Error\n{\n  \"message\": \"Cast to ObjectId failed for value \\\":id\\\" at path \\\"_id\\\"\n}",
           "type": "json"
         }
       ]
