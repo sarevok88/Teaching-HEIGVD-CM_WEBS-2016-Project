@@ -434,7 +434,7 @@ function getIssues() { return; }
  * @apiErrorExample Réponse (Error 500):
  *     Error 500: Internal Server Error
  *     {
- *       "message": "Issue not found"
+ *       "message": "Cast to ObjectId failed for value \"{value}\" at path \"_id\""
  *     }
  */
 function getIssueById() { return; }
@@ -715,7 +715,7 @@ function GetActionsOnIssue() { return; }
  * @apiSuccess {object[]} tags                       Tags de l'issue.
  *
  * @apiUse CreateElementError
- * @apiUse BadRequest
+ * @apiUse IdNotFound
  * @apiUse UserRequired
  */
 function postIssue() { return; }
@@ -729,24 +729,35 @@ function postIssue() { return; }
  *
  * @apiDescription Fonction permettant de modifier les paramètres d'une issue.
  *
+ * @apiParam {String}   id                        Id de l'issue.
  * @apiParam {String}   name                       Nom de l'issue.
  * @apiParam {String}   type                       Type de l'issue.
- * @apiParam {String}   issues.tags                Tags de l'issue.
  * @apiParam {String}   status                     Statut de l'issue.
+ * @apiParam {object[]} tags                       Tags de l'issue.
  * @apiParam {object[]} localisation               Tableau d'informations liées  à la localisation.
  * @apiParam {string}   localisation.type          Type de géomètrie.
  * @apiParam {object[]} localisation.coordinates   Tableau d'informations liées  aux coordonées.
  * @apiParam {String}   descritpion                Description de l'issues.
  * @apiParam {String}   photo                      Lien vers l'image présentant l'issue.
- * @apiParam {Object[]} issues.action              Tableau d'information liées au actions entreprises.
- * @apiParam {object[]} responsable                Information du user s'occupant de l'issue.
- * @apiParam {Number}   responsable.id             Id du user responsable de l'issue.
- * @apiParam {object[]} user                       Information du user signalant l'issue.
- * @apiParam {Number}   user.id                    Id du user signalant l'issue.
+ * @apiParam {String}   user                       Id du user signalant l'issue.
+ * @apiParam {Object[]} action                     Tableau d'information liées au actions entreprises.
  * 
- * @apiSuccess {Number} id                         Id de la nouvelle issue.
+ *
+ * @apiSuccess {String}   name                       Nom de l'issue.
+ * @apiSuccess {String}   type                       Type de l'issue.
+ * @apiSuccess {String}   status                     Statut de l'issue.
+ * @apiSuccess {String}   descritpion                Description de l'issues.
+ * @apiSuccess {String}   photo                      Lien vers l'image présentant l'issue.
+ * @apiSuccess {String}   user                       Id du user signalant l'issue.
+ * @apiSuccess {String}   _id                        Id de l'issue.
+ * @apiSuccess {Object[]} action                     Tableau d'information liées au actions entreprises.
+ * @apiSuccess {object[]} localisation               Tableau d'informations liées  à la localisation.
+ * @apiSuccess {string}   localisation.type          Type de géomètrie.
+ * @apiSuccess {object[]} localisation.coordinates   Tableau d'informations liées  aux coordonées.
+ * @apiSuccess {object[]} tags                       Tags de l'issue.
  *
  * @apiUse CreateElementError
+ * @apiUse IdNotFound
  */
 function putIssue() { return; }
 

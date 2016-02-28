@@ -766,7 +766,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Réponse (Error 500):",
-          "content": "Error 500: Internal Server Error\n{\n  \"message\": \"Issue not found\"\n}",
+          "content": "Error 500: Internal Server Error\n{\n  \"message\": \"Cast to ObjectId failed for value \\\"{value}\\\" at path \\\"_id\\\"\"\n}",
           "type": "json"
         }
       ]
@@ -2016,8 +2016,8 @@ define({ "api": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "Error400-1",
-            "description": "<p>L'<code>id</code> que vous recherchez n'éxiste pas.</p>"
+            "field": "Error500-2",
+            "description": "<p>L'<code>id</code> de l'élément saisi n'a pas été trouvé.</p>"
           },
           {
             "group": "Error 4xx",
@@ -2034,8 +2034,8 @@ define({ "api": [
           "type": "json"
         },
         {
-          "title": "Response (Error400-1):",
-          "content": "Error 400: Bad Request\n{\n  \"message\": \"No element with ID={value}\"\n}",
+          "title": "Response (Error500-2):",
+          "content": "Error 500: Internal Server Error\n{\n  \"message\": \"Cast to ObjectId failed for value \\\":id\\\" at path \\\"_id\\\"\n}",
           "type": "json"
         },
         {
@@ -2066,6 +2066,13 @@ define({ "api": [
             "group": "Parameter",
             "type": "String",
             "optional": false,
+            "field": "id",
+            "description": "<p>Id de l'issue.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
             "field": "name",
             "description": "<p>Nom de l'issue.</p>"
           },
@@ -2080,15 +2087,15 @@ define({ "api": [
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "issues.tags",
-            "description": "<p>Tags de l'issue.</p>"
+            "field": "status",
+            "description": "<p>Statut de l'issue.</p>"
           },
           {
             "group": "Parameter",
-            "type": "String",
+            "type": "object[]",
             "optional": false,
-            "field": "status",
-            "description": "<p>Statut de l'issue.</p>"
+            "field": "tags",
+            "description": "<p>Tags de l'issue.</p>"
           },
           {
             "group": "Parameter",
@@ -2127,38 +2134,17 @@ define({ "api": [
           },
           {
             "group": "Parameter",
-            "type": "Object[]",
-            "optional": false,
-            "field": "issues.action",
-            "description": "<p>Tableau d'information liées au actions entreprises.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "object[]",
-            "optional": false,
-            "field": "responsable",
-            "description": "<p>Information du user s'occupant de l'issue.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "responsable.id",
-            "description": "<p>Id du user responsable de l'issue.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "object[]",
+            "type": "String",
             "optional": false,
             "field": "user",
-            "description": "<p>Information du user signalant l'issue.</p>"
+            "description": "<p>Id du user signalant l'issue.</p>"
           },
           {
             "group": "Parameter",
-            "type": "Number",
+            "type": "Object[]",
             "optional": false,
-            "field": "user.id",
-            "description": "<p>Id du user signalant l'issue.</p>"
+            "field": "action",
+            "description": "<p>Tableau d'information liées au actions entreprises.</p>"
           }
         ]
       }
@@ -2168,10 +2154,87 @@ define({ "api": [
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "String",
             "optional": false,
-            "field": "id",
-            "description": "<p>Id de la nouvelle issue.</p>"
+            "field": "name",
+            "description": "<p>Nom de l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "type",
+            "description": "<p>Type de l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Statut de l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "descritpion",
+            "description": "<p>Description de l'issues.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "photo",
+            "description": "<p>Lien vers l'image présentant l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "user",
+            "description": "<p>Id du user signalant l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>Id de l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "action",
+            "description": "<p>Tableau d'information liées au actions entreprises.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "object[]",
+            "optional": false,
+            "field": "localisation",
+            "description": "<p>Tableau d'informations liées  à la localisation.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "localisation.type",
+            "description": "<p>Type de géomètrie.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "object[]",
+            "optional": false,
+            "field": "localisation.coordinates",
+            "description": "<p>Tableau d'informations liées  aux coordonées.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "object[]",
+            "optional": false,
+            "field": "tags",
+            "description": "<p>Tags de l'issue.</p>"
           }
         ]
       }
@@ -2191,6 +2254,12 @@ define({ "api": [
             "optional": false,
             "field": "Error500-1",
             "description": "<p>Le format de données saisies n'est pas valide.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Error500-2",
+            "description": "<p>L'<code>id</code> de l'élément saisi n'a pas été trouvé.</p>"
           }
         ]
       },
@@ -2198,6 +2267,11 @@ define({ "api": [
         {
           "title": "Response (Error500-1):",
           "content": "Error 500: Internal Server Error\n{\n  \"message\": \"Element validation failed\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Response (Error500-2):",
+          "content": "Error 500: Internal Server Error\n{\n  \"message\": \"Cast to ObjectId failed for value \\\":id\\\" at path \\\"_id\\\"\n}",
           "type": "json"
         }
       ]

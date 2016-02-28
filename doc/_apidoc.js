@@ -36,22 +36,7 @@
  *     }  
  */
 
-/**
- * @apiDefine BadRequest
- * @apiVersion 0.1.0
- *
- * @apiError Error400-1 L'<code>id</code> que vous recherchez n'éxiste pas.
- *
- * @apiErrorExample  Response (Error400-1):
- *     Error 400: Bad Request
- *     {
- *       "message": "No element with ID={value}"
- *     }
- *     
- *     
- *     
- *     
- */
+
 
 /**
  * @apiDefine UserRequired
