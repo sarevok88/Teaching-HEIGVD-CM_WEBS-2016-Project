@@ -92,8 +92,6 @@ router.get('/', function (req, res, next) {
     criteria.endDate = req.query.endDate;
   }
 
-
-
   Issue.find(criteria, function (err, issues) {
     if (err) {
       res.status(500).send(err);
@@ -111,23 +109,18 @@ router.get('/', function (req, res, next) {
 router.get('/:id', function (req, res, next) {
 
   var issueId = req.params.id;
-  if (!mongoose.Types.ObjectId.isValid(issueId)){
-    res.status(404).send("404 - Issue not found");
-  }
-  else{
-    Issue.findById(issueId, function(err, issue) {
-      if (err) {
-        res.status(500).send(err);
-        return;
-      }
-      else if (!issue) {
-        res.status(404).send('404 - Issue not found');
-        return;
-      }
-    })
+
+  Issue.findById(issueId, function(err, issue) {
+    if (err) {
+      res.status(500).send(err);
+      return;
+    } else if (!issue) {
+      res.status(404).send('Issue not found');
+      return;
+    }
 
     res.send(issue);
-  }
+  });
 });
 
 // PUT /api/issues/:id
