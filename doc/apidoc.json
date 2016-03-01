@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "description": "Documentation de l'API REST Teaching-HEIGVD-CM_WEBS-2016-Project",
   "title": "apiDoc Teaching-HEIGVD-CM_WEBS-2016-Project",
-  "url" : "",
-  "sampleUrl": "",
+  "url" : "http://localhost:3000/api",
+  "sampleUrl": "http://localhost:3000/api",
   "header": {
     "title": "Introduction",
     "filename": "header.md"

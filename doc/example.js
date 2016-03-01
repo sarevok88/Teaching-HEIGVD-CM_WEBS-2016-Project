@@ -4,55 +4,53 @@
  * @apiName GetUser
  * @apiGroup Users
  *                
- * @apiDescription Fonction permettant d'obtenir toutes les users enregistré sur notre API. 
+ * @apiDescription Fonction permettant d'obtenir tous les users enregistré sur notre API. 
  * 
  * 
  * @apiSuccess {Object[]} users               Liste des users. 
- * @apiSuccess {Number}   users.id            Id du user.
- * @apiSuccess {String}   users.firstName     Prénom du User.
- * @apiSuccess {String}   users.name          Nom du User.
+ * @apiSuccess {String}   users.id            Id du user.
+ * @apiSuccess {String}   users.forname       Prénom du User.
+ * @apiSuccess {String}   users.surname       Nom du User.
  * @apiSuccess {String}   users.nickname      Pseudonyme du User.
- * @apiSuccess {String}   users.email         Email du User.
- * @apiSuccess {Date}     users.birth         Date de naissance du User.
- * @apiSuccess {String}   users.role          Role du User (staff ou citoyen).
+ * @apiSuccess {String}   users.dob           Date de naissance du User.
+ * @apiSuccess {Date}     users.email         Email du User.
+ * @apiSuccess {Object[]} users.role          Liste des Roles du User.
  *
- * @apiError User(s)NotFound   Il n'y a pas de User sur votre base de donnée.
+ * @apiError NoUsersFound   Il n'y a pas de User sur votre base de donnée.
  *
- * @apiErrorExample Réponse (exemple):
- *     HTTP/1.1 404 Not Found
- *     {
- *       "error": "User not found"
- *     }
+ * @apiErrorExample Réponse (exemple):     
+ *     []
+ *     
  */
 function getUser() { return; }
 
 /**
- * @api {get} /users/{id} 02. Get user via ID
+ * @api {get} /users/:id 02. Get user via ID
  * @apiVersion 0.1.0
  * @apiName GetUserById
  * @apiGroup Users
  *
  * @apiDescription Fonction permettant d'obtenir un user spécifique via son ID.
  *
- * @apiParam {Nombre} id Identifiant unique des Users.
+ * @apiParam {String} id Identifiant unique des Users.
  *
  * @apiExample Exemple d'utilisation:
- * curl -i http://localhost/user/01
+ * http://localhost:3000/api/users/56d05eefa0b1214c16facb19
  *
- * @apiSuccess {Number}   id            Id du user.
- * @apiSuccess {String}   firstName     Prénom du User.
- * @apiSuccess {String}   name          Nom du User.
+ * @apiSuccess {String}   id            Id du user.
+ * @apiSuccess {String}   forname       Prénom du User.
+ * @apiSuccess {String}   surname       Nom du User.
  * @apiSuccess {String}   nickname      Pseudonyme du User.
- * @apiSuccess {String}   email         Email du User.
- * @apiSuccess {Date}     birth         Date de naissance du User.
- * @apiSuccess {String}   role          Role du User (staff ou citoyen).
+ * @apiSuccess {String}   dob           Date de naissance du User.
+ * @apiSuccess {Date}     email         Email du User.
+ * @apiSuccess {Object[]} role          Role du User (staff ou citoyen).
  *
- * @apiError UserNotFound   L'<code>id</code> du User saisi n'a pas été trouvé.
+ * @apiError Error500   L'<code>id</code> du User saisi n'a pas été trouvé.
  *
- * @apiErrorExample Réponse (exemple):
- *     HTTP/1.1 404 Not Found
+ * @apiErrorExample Réponse (Error 500):
+ *     Error 500: Internal Server Error
  *     {
- *       "error": "User not found"
+ *       "message": "Cast to ObjectId failed for value \"{value}\" at path \"_id\""
  *     }
  */
 function getUserById() { return; }
@@ -145,7 +143,7 @@ function GetUserSolvedMost() { return; }
 function GetUserSolvedMost() { return; }
 
 /**
- * @api {post} /user 06. Créer un nouveau User
+ * @api {post} /users 06. Créer un nouveau User
  * @apiVersion 0.1.0
  * @apiName PostUser
  * @apiGroup Users
@@ -153,21 +151,32 @@ function GetUserSolvedMost() { return; }
  *
  * @apiDescription Fonction permettant de créer un nouveau User.
  *
- * @apiParam {String}   firstName     Prénom du User.
- * @apiParam {String}   name          Nom du User.
+ * @apiParam {String}   forname       Prénom du User.
+ * @apiParam {String}   surname       Nom du User.
  * @apiParam {String}   nickname      Pseudonyme du User.
- * @apiParam {String}   email         Email du User.
- * @apiParam {Date}     birth         Date de naissance du User.
- * @apiParam {String}   role          Role du User (staff ou citoyen).
+ * @apiParam {String}   dob           Date de naissance du User.
+ * @apiParam {Date}     email         Email du User.
+ * @apiParam {Object[]} role          Role du User (staff ou citoyen).
  * 
- * @apiSuccess {Number} id            Id du nouvel utilisateur.
- *
+ * @apiSuccess {String} forname        Prénom du nouvel utilisateur.
+ * @apiSuccess {String} surname        Nom du nouvel utilisateur.
+ * @apiSuccess {String} nickname       Pseudonyme du nouvel utilisateur.
+ * @apiSuccess {String} dob            Date de naissance du nouvel utilisateur (jj-mm-aaaa).
+ * @apiSuccess {String} email          Email du nouvel utilisateur.
+ * @apiSuccess {String} id             Id du nouvel utilisateur.
+ * @apiSuccess {Object[]} role         Role du nouvel utilisateur.
+ * 
+ * 
  * @apiUse CreateElementError
+ * 
+ * 
+ * 
+ * 
  */
 function postUser() { return; }
 
 /**
- * @api {put} /user/:id 07. Modifier un User éxistant.
+ * @api {put} /users/:id 07. Modifier un User éxistant.
  * @apiVersion 0.1.0
  * @apiName PutUser
  * @apiGroup Users
@@ -175,22 +184,32 @@ function postUser() { return; }
  *
  * @apiDescription Fonction permettant de modifier les paramètres d'un utilisateur.
  *
- * @apiParam {Number}   id            Id du user.
- * @apiParam {String}   firstName     Prénom du User.
- * @apiParam {String}   name          Nom du User.
- * @apiParam {String}   nickname      Pseudonyme du User.
- * @apiParam {String}   email         Email du User.
- * @apiParam {Date}     birth         Date de naissance du User.
- * @apiParam {String}   role          Role du User (staff ou citoyen).
+ * @apiParam {String}   id            Id du User.
+ * @apiParam {String}   forname       Nouveau prénom du User.
+ * @apiParam {String}   surname       Nouveau nom du User.
+ * @apiParam {String}   nickname      Nouveau pseudonyme du User.
+ * @apiParam {String}   dob           Nouvelle date de naissance du User.
+ * @apiParam {Date}     email         Nouvel email du User.
+ * @apiParam {Object[]} role          Nouveau role du User (staff ou citoyen).
+ * 
+ * @apiSuccess {String} forname        Prénom à jour de l'utilisateur.
+ * @apiSuccess {String} surname        Nom à jour de l'utilisateur.
+ * @apiSuccess {String} nickname       Pseudonyme à jour de l'utilisateur.
+ * @apiSuccess {String} dob            Date de naissance à jour de l'utilisateur (jj-mm-aaaa).
+ * @apiSuccess {String} email          Email à jour de l'utilisateur.
+ * @apiSuccess {String} id             Id à jour de l'utilisateur.
+ * @apiSuccess {Object[]} role         Role à jour de l'utilisateur.
  *
- *@apiSuccess {Number} id            Id du user mis à jour.
+ *
+ *
  *
  * @apiUse CreateElementError
+ * @apiUse IdNotFound
  */
 function putUser() { return; }
 
 /**
- * @api {delete} /user/:id 08. Supprimer un User éxistant.
+ * @api {delete} /users/:id 08. Supprimer un User éxistant.
  * @apiVersion 0.1.0
  * @apiName DeleteUser
  * @apiGroup Users
@@ -200,9 +219,8 @@ function putUser() { return; }
  *
  * @apiParam {Number}     id            Id du user.
  * 
- * @apiSuccess {Number}   id            Id du user supprimer.
  *
- * @apiUse CreateElementError
+ * @apiUse IdNotFound
  */
 function DeleteUser() { return; }
 
@@ -327,7 +345,7 @@ function postComment() { return; }
  *
  * @apiUse CreateElementError
  */
-function putUser() { return; }
+function putComment() { return; }
 
 /**
  * @api {delete} /comments/:id 06. Supprimer un comment éxistant.
@@ -346,7 +364,7 @@ function putUser() { return; }
  *
  * @apiUse CreateElementError
  */
-function deleteUser() { return; }
+function deleteComment() { return; }
 
 /**
  * @api {get} /issues 01. Get issues
@@ -356,74 +374,67 @@ function deleteUser() { return; }
  *                
  * @apiDescription Fonction permettant d'obtenir toutes les issues enregistrée sur notre API. 
  *
- *
- * @apiExample Exemple d'utilisation:
- * curl -i http://localhost/issues
  * 
  * 
  * @apiSuccess {Object[]} issues                            Liste des issues. 
- * @apiSuccess {Number}   issues.id                         Id de l'issue.
+ * @apiSuccess {String}   issues._id                        Id de l'issue.
  * @apiSuccess {String}   issues.name                       Nom de l'issue.
  * @apiSuccess {String}   issues.type                       Type de l'issue.
- * @apiSuccess {String}   issues.tags                       Tags de l'issue.
  * @apiSuccess {String}   issues.status                     Statut de l'issue.
+ * @apiSuccess {String}   issues.descritpion                Description de l'issues.
+ * @apiSuccess {String}   issues.photo                      Lien vers l'image présentant l'issue.
+ * @apiSuccess {String}   issues.user                       Id du user signalant l'issue.
+ * @apiSuccess {Object[]} issues.action                     Tableau d'information liées au actions effectuées.
  * @apiSuccess {object[]} issues.localisation               Tableau d'informations liées  à la localisation.
  * @apiSuccess {string}   issues.localisation.type          Type de géomètrie.
  * @apiSuccess {object[]} issues.localisation.coordinates   Tableau d'informations liées  aux coordonées.
- * @apiSuccess {String}   issues.descritpion                Description de l'issues.
- * @apiSuccess {String}   issues.photo                      Lien vers l'image présentant l'issue.
- * @apiSuccess {Object[]} issues.action                     Tableau d'information liées au actions entreprises.
- * @apiSuccess {object[]} issues.responsable                Information du user s'occupant de l'issue.
- * @apiSuccess {Number}   issues.responsable.id             Id du user responsable de l'issue.
- * @apiSuccess {object[]} issues.user                       Information du user signalant l'issue.
- * @apiSuccess {Number}   issues.user.id                    Id du user signalant l'issue.
+ * @apiSuccess {String} issues.responsable                Information du user s'occupant de l'issue.
+ * @apiSuccess {object[]} issues.tags                       Tableau des tags liés à l'issue.
+ * @apiSuccess {String}   issues.responsable                Id du user responsable de l'issue.
  * 
- * @apiError Issue(s)NotFound   Il n'y a pas d'issue sur votre base de donnée.
  *
- * @apiErrorExample Réponse (exemple):
- *     HTTP/1.1 404 Not Found
- *     {
- *       "error": "Issue not found"
- *     }
+  * @apiError NoIssueFound   Il n'y a pas d'Issue sur votre base de donnée.
+ *
+ * @apiErrorExample Réponse (exemple):     
+ *     []
  */
 function getIssues() { return; }
 
 
 /**
- * @api {get} /issues/{id} 02. Get issues via ID
+ * @api {get} /issues/:id 02. Get issues via ID
  * @apiVersion 0.1.0
  * @apiName GetIssueById
  * @apiGroup Issues
  *
  * @apiDescription Fonction permettant d'obtenir une issue spécifique via son ID.
  *
- * @apiParam {Nombre} id Identifiant unique de l'issue.
+ * @apiParam {String} _id Identifiant unique de l'issue.
  *
  * @apiExample Exemple d'utilisation:
- * curl -i http://localhost/issue/01
+ * http://localhost:3000/api/issues/56d2d706e76014600d42f982
  *
- * @apiSuccess {Number}   id                         Id de l'issue.
+ * @apiSuccess {String}   _id                        Id de l'issue.
  * @apiSuccess {String}   name                       Nom de l'issue.
  * @apiSuccess {String}   type                       Type de l'issue.
- * @apiSuccess {String}   issues.tags                       Tags de l'issue.
  * @apiSuccess {String}   status                     Statut de l'issue.
+ * @apiSuccess {String}   descritpion                Description de l'issues.
+ * @apiSuccess {String}   photo                      Lien vers l'image présentant l'issue.
+ * @apiSuccess {String}   user                       Id du user signalant l'issue.
+ * @apiSuccess {Object[]} action                     Tableau d'information liées au actions effectuées.
  * @apiSuccess {object[]} localisation               Tableau d'informations liées  à la localisation.
  * @apiSuccess {string}   localisation.type          Type de géomètrie.
  * @apiSuccess {object[]} localisation.coordinates   Tableau d'informations liées  aux coordonées.
- * @apiSuccess {String}   descritpion                Description de l'issues.
- * @apiSuccess {String}   photo                      Lien vers l'image présentant l'issue.
- * @apiSuccess {Object[]} issues.action                     Tableau d'information liées au actions entreprises.
- * @apiSuccess {object[]} responsable                Information du user s'occupant de l'issue.
- * @apiSuccess {Number}   responsable.id             Id du user responsable de l'issue.
- * @apiSuccess {object[]} user                       Information du user signalant l'issue.
- * @apiSuccess {Number}   user.id                    Id du user signalant l'issue.
+ * @apiSuccess {String}   responsable                Information du user s'occupant de l'issue.
+ * @apiSuccess {object[]} tags                       Tableau des tags liés à l'issue.
+ * @apiSuccess {String}   responsable                Id du user responsable de l'issue.
  *
- * @apiError IssueNotFound   L'<code>id</code> de l'issue saisie n'a pas été trouvé.
+ * @apiError Error500   L'<code>id</code> du de l'issue saisie n'a pas été trouvé.
  *
- * @apiErrorExample Réponse (exemple):
- *     HTTP/1.1 404 Not Found
+ * @apiErrorExample Réponse (Error 500):
+ *     Error 500: Internal Server Error
  *     {
- *       "error": "Issue not found"
+ *       "message": "Cast to ObjectId failed for value \"{value}\" at path \"_id\""
  *     }
  */
 function getIssueById() { return; }
@@ -679,22 +690,33 @@ function GetActionsOnIssue() { return; }
  *
  * @apiParam {String}   name                       Nom de l'issue.
  * @apiParam {String}   type                       Type de l'issue.
- * @apiParam {String}   issues.tags                Tags de l'issue.
  * @apiParam {String}   status                     Statut de l'issue.
+ * @apiParam {object[]} tags                       Tags de l'issue.
  * @apiParam {object[]} localisation               Tableau d'informations liées  à la localisation.
  * @apiParam {string}   localisation.type          Type de géomètrie.
  * @apiParam {object[]} localisation.coordinates   Tableau d'informations liées  aux coordonées.
  * @apiParam {String}   descritpion                Description de l'issues.
  * @apiParam {String}   photo                      Lien vers l'image présentant l'issue.
- * @apiParam {Object[]} issues.action              Tableau d'information liées au actions entreprises.
- * @apiParam {object[]} responsable                Information du user s'occupant de l'issue.
- * @apiParam {Number}   responsable.id             Id du user responsable de l'issue.
- * @apiParam {object[]} user                       Information du user signalant l'issue.
- * @apiParam {Number}   user.id                    Id du user signalant l'issue.
+ * @apiParam {String}   user                       Id du user signalant l'issue.
+ * @apiParam {Object[]} action                     Tableau d'information liées au actions entreprises.
  * 
- * @apiSuccess {Number} id                         Id de la nouvelle issue.
+ *
+ * @apiSuccess {String}   name                       Nom de l'issue.
+ * @apiSuccess {String}   type                       Type de l'issue.
+ * @apiSuccess {String}   status                     Statut de l'issue.
+ * @apiSuccess {String}   descritpion                Description de l'issues.
+ * @apiSuccess {String}   photo                      Lien vers l'image présentant l'issue.
+ * @apiSuccess {String}   user                       Id du user signalant l'issue.
+ * @apiSuccess {String}   _id                        Id de l'issue.
+ * @apiSuccess {Object[]} action                     Tableau d'information liées au actions entreprises.
+ * @apiSuccess {object[]} localisation               Tableau d'informations liées  à la localisation.
+ * @apiSuccess {string}   localisation.type          Type de géomètrie.
+ * @apiSuccess {object[]} localisation.coordinates   Tableau d'informations liées  aux coordonées.
+ * @apiSuccess {object[]} tags                       Tags de l'issue.
  *
  * @apiUse CreateElementError
+ * @apiUse IdNotFound
+ * @apiUse UserRequired
  */
 function postIssue() { return; }
 
@@ -707,24 +729,35 @@ function postIssue() { return; }
  *
  * @apiDescription Fonction permettant de modifier les paramètres d'une issue.
  *
+ * @apiParam {String}   id                        Id de l'issue.
  * @apiParam {String}   name                       Nom de l'issue.
  * @apiParam {String}   type                       Type de l'issue.
- * @apiParam {String}   issues.tags                Tags de l'issue.
  * @apiParam {String}   status                     Statut de l'issue.
+ * @apiParam {object[]} tags                       Tags de l'issue.
  * @apiParam {object[]} localisation               Tableau d'informations liées  à la localisation.
  * @apiParam {string}   localisation.type          Type de géomètrie.
  * @apiParam {object[]} localisation.coordinates   Tableau d'informations liées  aux coordonées.
  * @apiParam {String}   descritpion                Description de l'issues.
  * @apiParam {String}   photo                      Lien vers l'image présentant l'issue.
- * @apiParam {Object[]} issues.action              Tableau d'information liées au actions entreprises.
- * @apiParam {object[]} responsable                Information du user s'occupant de l'issue.
- * @apiParam {Number}   responsable.id             Id du user responsable de l'issue.
- * @apiParam {object[]} user                       Information du user signalant l'issue.
- * @apiParam {Number}   user.id                    Id du user signalant l'issue.
+ * @apiParam {String}   user                       Id du user signalant l'issue.
+ * @apiParam {Object[]} action                     Tableau d'information liées au actions entreprises.
  * 
- * @apiSuccess {Number} id                         Id de la nouvelle issue.
+ *
+ * @apiSuccess {String}   name                       Nom de l'issue.
+ * @apiSuccess {String}   type                       Type de l'issue.
+ * @apiSuccess {String}   status                     Statut de l'issue.
+ * @apiSuccess {String}   descritpion                Description de l'issues.
+ * @apiSuccess {String}   photo                      Lien vers l'image présentant l'issue.
+ * @apiSuccess {String}   user                       Id du user signalant l'issue.
+ * @apiSuccess {String}   _id                        Id de l'issue.
+ * @apiSuccess {Object[]} action                     Tableau d'information liées au actions entreprises.
+ * @apiSuccess {object[]} localisation               Tableau d'informations liées  à la localisation.
+ * @apiSuccess {string}   localisation.type          Type de géomètrie.
+ * @apiSuccess {object[]} localisation.coordinates   Tableau d'informations liées  aux coordonées.
+ * @apiSuccess {object[]} tags                       Tags de l'issue.
  *
  * @apiUse CreateElementError
+ * @apiUse IdNotFound
  */
 function putIssue() { return; }
 
