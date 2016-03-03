@@ -101,7 +101,7 @@ router.get('/', function (req, res, next) {
 
   //  Filtre par startDate ?startDate=
   if (req.query.startDate) {
-    criteria.startDate = req.query.startDate;
+    criteria.created_at = req.query.startDate;
   }
 
   //  Filtre par endDate ?endDate=
@@ -110,8 +110,20 @@ router.get('/', function (req, res, next) {
   }
 
   //filtre par zone géographique
-  if (typeof(req.query.coordX) && typeof(req.query.coordY) && (req.query.rad)){
+  var coordX =req.query.coordX;
+  coordY = req.query.coordY;
+  radius = req.query.rad;
 
+  if (coordX && coordY && radius){
+    criteria.localisation = {
+      $near: {
+        $geometry: {
+          type: "Point",
+          coordinates: [parseFloat(coordX),parseFloat(coordY)]
+        },
+        $maxDistance: parseInt(radius, 10)
+      }
+    }
   }
 
 

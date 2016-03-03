@@ -19,4 +19,8 @@ var IssueSchema = new Schema({
   user: Schema.Types.ObjectId,
 });
 
+IssueSchema.index({
+  localisation: "2dsphere"
+});
+
 mongoose.model('Issue', IssueSchema);
