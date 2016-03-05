@@ -25,19 +25,6 @@ define({ "api": [
         ]
       }
     },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "id",
-            "description": "<p>Id du comment supprimer.</p>"
-          }
-        ]
-      }
-    },
     "filename": "doc/example.js",
     "groupTitle": "Comments",
     "sampleRequest": [
@@ -73,13 +60,6 @@ define({ "api": [
     "name": "GetComments",
     "group": "Comments",
     "description": "<p>Fonction permettant d'obtenir tous les comments poster sur notre API.</p>",
-    "examples": [
-      {
-        "title": "Exemple d'utilisation:",
-        "content": "curl -i http://localhost/comments",
-        "type": "json"
-      }
-    ],
     "success": {
       "fields": {
         "Success 200": [
@@ -92,17 +72,17 @@ define({ "api": [
           },
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "number",
             "optional": false,
-            "field": "comments.authorId",
-            "description": "<p>Id de l'auteur du comment.</p>"
+            "field": "comments.Id",
+            "description": "<p>Id du comment.</p>"
           },
           {
             "group": "Success 200",
             "type": "Number",
             "optional": false,
-            "field": "comments.commentId",
-            "description": "<p>Id du comment.</p>"
+            "field": "comments.authorId",
+            "description": "<p>Id de l'auteur du comment.</p>"
           },
           {
             "group": "Success 200",
@@ -120,15 +100,15 @@ define({ "api": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "CommentNotFound",
-            "description": "<p>Il n'y a pas de Comment sur votre base de donnée.</p>"
+            "field": "NoCommentsFound",
+            "description": "<p>Il n'y a pas de comment sur votre base de donnée.</p>"
           }
         ]
       },
       "examples": [
         {
-          "title": "Réponse (exemple):",
-          "content": "HTTP/1.1 404 Not Found\n{\n  \"error\": \"Comment(s) not found\"\n}",
+          "title": "Réponse (exemple):     ",
+          "content": "[]",
           "type": "json"
         }
       ]
@@ -143,16 +123,16 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "/comments?issueId={id}",
-    "title": "02. Get comment via Id.",
+    "url": "/comments/:id",
+    "title": "02. Get comment via son Id.",
     "version": "0.1.0",
     "name": "GetCommentsById",
     "group": "Comments",
-    "description": "<p>Fonction permettant d'obtenir un commentaire spécifique via son ID.</p>",
+    "description": "<p>Fonction permettant d'obtenir un comments via son ID.</p>",
     "examples": [
       {
         "title": "Exemple d'utilisation:",
-        "content": "curl -i http://localhost/comments/01",
+        "content": "curl -i http://localhost:3000/api/comments/56d05eefa0b1214c16facb19",
         "type": "json"
       }
     ],
@@ -161,7 +141,7 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "Nombre",
+            "type": "string",
             "optional": false,
             "field": "id",
             "description": "<p>Identifiant unique du comment.</p>"
@@ -174,17 +154,17 @@ define({ "api": [
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "number",
             "optional": false,
-            "field": "authorId",
-            "description": "<p>Id de l'auteur du comment.</p>"
+            "field": "Id",
+            "description": "<p>Id du comment.</p>"
           },
           {
             "group": "Success 200",
             "type": "Number",
             "optional": false,
-            "field": "commentId",
-            "description": "<p>Id du comment.</p>"
+            "field": "authorId",
+            "description": "<p>Id de l'auteur du comment.</p>"
           },
           {
             "group": "Success 200",
@@ -202,15 +182,15 @@ define({ "api": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "CommentNotFound",
-            "description": "<p>Il n'y a aucun comment correspondant à cet Id sur votre base de donnée.</p>"
+            "field": "Error500",
+            "description": "<p>L'<code>id</code> du comment saisi n'a pas été trouvé.</p>"
           }
         ]
       },
       "examples": [
         {
-          "title": "Réponse (exemple):",
-          "content": "HTTP/1.1 404 Not Found\n{\n  \"error\": \"Comment not found\"\n}",
+          "title": "Réponse (Error 500):",
+          "content": "Error 500: Internal Server Error\n{\n  \"message\": \"Cast to ObjectId failed for value \\\"{value}\\\" at path \\\"_id\\\"\"\n}",
           "type": "json"
         }
       ]
@@ -219,22 +199,22 @@ define({ "api": [
     "groupTitle": "Comments",
     "sampleRequest": [
       {
-        "url": "http://localhost:3000/api/comments?issueId={id}"
+        "url": "http://localhost:3000/api/comments/:id"
       }
     ]
   },
   {
     "type": "get",
-    "url": "/comments?issueId={id}",
-    "title": "03. Get comments appartenant à une issue.",
+    "url": "/comments?issueId=:id",
+    "title": "03. Get comment via issue Id.",
     "version": "0.1.0",
-    "name": "GetCommentsByIssue",
+    "name": "GetCommentsByIssueId",
     "group": "Comments",
-    "description": "<p>Fonction permettant d'obtenir un commentaire spécifique via son ID.</p>",
+    "description": "<p>Fonction permettant d'obtenir les comments appartenant à une issue spécifique via son ID.</p>",
     "examples": [
       {
         "title": "Exemple d'utilisation:",
-        "content": "curl -i http://localhost/comments?issueId=01",
+        "content": "curl -i http://localhost:3000/api/comments?issueId=56d05eefa0b1214c16facb19",
         "type": "json"
       }
     ],
@@ -243,10 +223,10 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "Nombre",
+            "type": "string",
             "optional": false,
             "field": "id",
-            "description": "<p>Identifiant unique de l'Issue.</p>"
+            "description": "<p>Identifiant unique de l'issue.</p>"
           }
         ]
       }
@@ -263,17 +243,17 @@ define({ "api": [
           },
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "number",
             "optional": false,
-            "field": "comments.authorId",
-            "description": "<p>Id de l'auteur du comment.</p>"
+            "field": "comments.Id",
+            "description": "<p>Id du comment.</p>"
           },
           {
             "group": "Success 200",
             "type": "Number",
             "optional": false,
-            "field": "comments.commentId",
-            "description": "<p>Id du comment.</p>"
+            "field": "comments.authorId",
+            "description": "<p>Id de l'auteur du comment.</p>"
           },
           {
             "group": "Success 200",
@@ -291,15 +271,15 @@ define({ "api": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "CommentNotFound",
-            "description": "<p>Il n'y a aucun comment associer à cet Id sur votre base de donnée.</p>"
+            "field": "Error500",
+            "description": "<p>L'<code>id</code> de l'issue saisie n'a pas été trouvé.</p>"
           }
         ]
       },
       "examples": [
         {
-          "title": "Réponse (exemple):",
-          "content": "HTTP/1.1 404 Not Found\n{\n  \"error\": \"Comment(s) not found\"\n}",
+          "title": "Réponse (Error 500):",
+          "content": "Error 500: Internal Server Error\n{\n  \"message\": \"Cast to ObjectId failed for value \\\"{value}\\\" at path \\\"_id\\\"\"\n}",
           "type": "json"
         }
       ]
@@ -308,7 +288,7 @@ define({ "api": [
     "groupTitle": "Comments",
     "sampleRequest": [
       {
-        "url": "http://localhost:3000/api/comments?issueId={id}"
+        "url": "http://localhost:3000/api/comments?issueId=:id"
       }
     ]
   },
@@ -330,17 +310,17 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
+            "type": "number",
+            "optional": false,
+            "field": "Id",
+            "description": "<p>Id du comment.</p>"
+          },
+          {
+            "group": "Parameter",
             "type": "Number",
             "optional": false,
             "field": "authorId",
             "description": "<p>Id de l'auteur du comment.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "number",
-            "optional": false,
-            "field": "commentId",
-            "description": "<p>Id du comment.</p>"
           },
           {
             "group": "Parameter",
@@ -410,17 +390,17 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
+            "type": "number",
+            "optional": false,
+            "field": "Id",
+            "description": "<p>Id du comment.</p>"
+          },
+          {
+            "group": "Parameter",
             "type": "Number",
             "optional": false,
             "field": "authorId",
             "description": "<p>Id de l'auteur du comment.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "number",
-            "optional": false,
-            "field": "commentId",
-            "description": "<p>Id du comment.</p>"
           },
           {
             "group": "Parameter",
@@ -490,23 +470,10 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "Number",
+            "type": "string",
             "optional": false,
             "field": "id",
             "description": "<p>Id de l'issue.</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "id",
-            "description": "<p>Id de l'issue supprimée.</p>"
           }
         ]
       }
@@ -524,15 +491,15 @@ define({ "api": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "Error500-1",
-            "description": "<p>Le format de données saisies n'est pas valide.</p>"
+            "field": "Error500-2",
+            "description": "<p>L'<code>id</code> de l'élément saisi n'a pas été trouvé.</p>"
           }
         ]
       },
       "examples": [
         {
-          "title": "Response (Error500-1):",
-          "content": "Error 500: Internal Server Error\n{\n  \"message\": \"Element validation failed\"\n}",
+          "title": "Response (Error500-2):",
+          "content": "Error 500: Internal Server Error\n{\n  \"message\": \"Cast to ObjectId failed for value \\\":id\\\" at path \\\"_id\\\"\n}",
           "type": "json"
         }
       ]
@@ -549,7 +516,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Exemple d'utilisation:",
-        "content": "curl -i http://localhost/actions?issueId=01",
+        "content": "http://localhost:3000/api/actions?issueId=01",
         "type": "json"
       }
     ],
@@ -759,7 +726,7 @@ define({ "api": [
             "group": "Error 4xx",
             "optional": false,
             "field": "Error500",
-            "description": "<p>L'<code>id</code> du de l'issue saisie n'a pas été trouvé.</p>"
+            "description": "<p>L'<code>id</code> de l'issue saisie n'a pas été trouvé.</p>"
           }
         ]
       },
@@ -876,17 +843,17 @@ define({ "api": [
           },
           {
             "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "issues.responsable",
-            "description": "<p>Information du user s'occupant de l'issue.</p>"
-          },
-          {
-            "group": "Success 200",
             "type": "object[]",
             "optional": false,
             "field": "issues.tags",
             "description": "<p>Tableau des tags liés à l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "issues.responsable",
+            "description": "<p>Id du user responsable de l'issue.</p>"
           }
         ]
       }
@@ -920,7 +887,7 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "/issues?issuesType={type}",
+    "url": "/issues?issuesType=:type",
     "title": "04. Get issues appartenant à un type spécifique.",
     "version": "0.1.0",
     "name": "GetIssuesByType",
@@ -929,7 +896,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Exemple d'utilisation:",
-        "content": "curl -i http://localhost/issues?issuesType=graffiti",
+        "content": "http://localhost:3000/api/issues?issuesType=dégat",
         "type": "json"
       }
     ],
@@ -958,9 +925,9 @@ define({ "api": [
           },
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "String",
             "optional": false,
-            "field": "issues.id",
+            "field": "issues._id",
             "description": "<p>Id de l'issue.</p>"
           },
           {
@@ -981,15 +948,36 @@ define({ "api": [
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "issues.tags",
-            "description": "<p>Tags de l'issue.</p>"
+            "field": "issues.status",
+            "description": "<p>Statut de l'issue.</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "issues.status",
-            "description": "<p>Statut de l'issue.</p>"
+            "field": "issues.descritpion",
+            "description": "<p>Description de l'issues.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "issues.photo",
+            "description": "<p>Lien vers l'image présentant l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "issues.user",
+            "description": "<p>Id du user signalant l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "issues.action",
+            "description": "<p>Tableau d'information liées au actions effectuées.</p>"
           },
           {
             "group": "Success 200",
@@ -1014,52 +1002,17 @@ define({ "api": [
           },
           {
             "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "issues.descritpion",
-            "description": "<p>Description de l'issues.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "issues.photo",
-            "description": "<p>Lien vers l'image présentant l'issue.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object[]",
-            "optional": false,
-            "field": "issues.action",
-            "description": "<p>Tableau d'information liées au actions entreprises.</p>"
-          },
-          {
-            "group": "Success 200",
             "type": "object[]",
+            "optional": false,
+            "field": "issues.tags",
+            "description": "<p>Tableau des tags liés à l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
             "optional": false,
             "field": "issues.responsable",
-            "description": "<p>Information du user s'occupant de l'issue.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "issues.responsable.id",
             "description": "<p>Id du user responsable de l'issue.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "object[]",
-            "optional": false,
-            "field": "issues.user",
-            "description": "<p>Information du user signalant l'issue.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "issues.user.id",
-            "description": "<p>Id du user signalant l'issue.</p>"
           }
         ]
       }
@@ -1070,15 +1023,15 @@ define({ "api": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "IssueNotFound",
-            "description": "<p>Il n'y a aucune issue associée à ce Type sur votre base de donnée.</p>"
+            "field": "Error500",
+            "description": "<p>Le<code>type</code> de l'issue saisie n'a pas été trouvé.</p>"
           }
         ]
       },
       "examples": [
         {
-          "title": "Réponse (exemple):",
-          "content": "HTTP/1.1 404 Not Found\n{\n  \"error\": \"Issue(s) not found\"\n}",
+          "title": "Réponse (Error 500):",
+          "content": "Error 500: Internal Server Error\n{\n  \"message\": \"Cast to ObjectId failed for value \\\"{type}\\\" at path \\\"type\\\"\"\n}",
           "type": "json"
         }
       ]
@@ -1087,13 +1040,13 @@ define({ "api": [
     "groupTitle": "Issues",
     "sampleRequest": [
       {
-        "url": "http://localhost:3000/api/issues?issuesType={type}"
+        "url": "http://localhost:3000/api/issues?issuesType=:type"
       }
     ]
   },
   {
     "type": "get",
-    "url": "/issues?userId={id}",
+    "url": "/issues?userId=:id",
     "title": "03. Get issues soulevée par un user.",
     "version": "0.1.0",
     "name": "GetIssuesByUser",
@@ -1102,7 +1055,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Exemple d'utilisation:",
-        "content": "curl -i http://localhost/issues?userId=01",
+        "content": "http://localhost:3000/api/issues?userId=56d2d706e76014600d42f982",
         "type": "json"
       }
     ],
@@ -1114,7 +1067,7 @@ define({ "api": [
             "type": "Nombre",
             "optional": false,
             "field": "id",
-            "description": "<p>Identifiant unique de l'Issue.</p>"
+            "description": "<p>Identifiant unique du user.</p>"
           }
         ]
       }
@@ -1131,9 +1084,9 @@ define({ "api": [
           },
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "String",
             "optional": false,
-            "field": "issues.id",
+            "field": "issues._id",
             "description": "<p>Id de l'issue.</p>"
           },
           {
@@ -1154,15 +1107,36 @@ define({ "api": [
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "issues.tags",
-            "description": "<p>Tags de l'issue.</p>"
+            "field": "issues.status",
+            "description": "<p>Statut de l'issue.</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "issues.status",
-            "description": "<p>Statut de l'issue.</p>"
+            "field": "issues.descritpion",
+            "description": "<p>Description de l'issues.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "issues.photo",
+            "description": "<p>Lien vers l'image présentant l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "issues.user",
+            "description": "<p>Id du user signalant l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "issues.action",
+            "description": "<p>Tableau d'information liées au actions effectuées.</p>"
           },
           {
             "group": "Success 200",
@@ -1187,52 +1161,17 @@ define({ "api": [
           },
           {
             "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "issues.descritpion",
-            "description": "<p>Description de l'issues.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "issues.photo",
-            "description": "<p>Lien vers l'image présentant l'issue.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object[]",
-            "optional": false,
-            "field": "issues.action",
-            "description": "<p>Tableau d'information liées au actions entreprises.</p>"
-          },
-          {
-            "group": "Success 200",
             "type": "object[]",
+            "optional": false,
+            "field": "issues.tags",
+            "description": "<p>Tableau des tags liés à l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
             "optional": false,
             "field": "issues.responsable",
-            "description": "<p>Information du user s'occupant de l'issue.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "issues.responsable.id",
             "description": "<p>Id du user responsable de l'issue.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "object[]",
-            "optional": false,
-            "field": "issues.user",
-            "description": "<p>Information du user signalant l'issue.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "issues.user.id",
-            "description": "<p>Id du user signalant l'issue.</p>"
           }
         ]
       }
@@ -1243,15 +1182,15 @@ define({ "api": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "IssueNotFound",
-            "description": "<p>Il n'y a aucune issue associée à cet Id sur votre base de donnée.</p>"
+            "field": "Error500",
+            "description": "<p>L'<code>id</code> de l'issue saisie n'a pas été trouvé.</p>"
           }
         ]
       },
       "examples": [
         {
-          "title": "Réponse (exemple):",
-          "content": "HTTP/1.1 404 Not Found\n{\n  \"error\": \"Issue(s) not found\"\n}",
+          "title": "Réponse (Error 500):",
+          "content": "Error 500: Internal Server Error\n{\n  \"message\": \"Cast to ObjectId failed for value \\\"{value}\\\" at path \\\"_id\\\"\"\n}",
           "type": "json"
         }
       ]
@@ -1260,13 +1199,13 @@ define({ "api": [
     "groupTitle": "Issues",
     "sampleRequest": [
       {
-        "url": "http://localhost:3000/api/issues?userId={id}"
+        "url": "http://localhost:3000/api/issues?userId=:id"
       }
     ]
   },
   {
     "type": "get",
-    "url": "/issues?coordX={valeurX}&coordY={valeurY}&rad={valeurRadius}",
+    "url": "/issues?coordX=:value1&coordY=:value2&rad=:valueRadius",
     "title": "08. Get liste des issues dans une région.",
     "version": "0.1.0",
     "name": "GetIssuesInRadius",
@@ -1275,7 +1214,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Exemple d'utilisation:",
-        "content": "curl -i http://localhost/issues?coordX=15&coordY=28&rad=10",
+        "content": "http://localhost:3000/api/issues?coordX=0.333&coordY=3.222&rad=0.2",
         "type": "json"
       }
     ],
@@ -1286,21 +1225,21 @@ define({ "api": [
             "group": "Parameter",
             "type": "number",
             "optional": false,
-            "field": "valeurX",
+            "field": "value1",
             "description": "<p>Coordonée en X.</p>"
           },
           {
             "group": "Parameter",
             "type": "number",
             "optional": false,
-            "field": "valeurY",
+            "field": "value2",
             "description": "<p>Coordonée en Y.</p>"
           },
           {
             "group": "Parameter",
             "type": "number",
             "optional": false,
-            "field": "valeurRadius",
+            "field": "valueRadius",
             "description": "<p>Taille du rayon de recherche.</p>"
           }
         ]
@@ -1311,115 +1250,94 @@ define({ "api": [
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "Object[]",
+            "type": "String",
             "optional": false,
-            "field": "issues",
-            "description": "<p>Liste des issues.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "issues.id",
+            "field": "_id",
             "description": "<p>Id de l'issue.</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "issues.name",
+            "field": "name",
             "description": "<p>Nom de l'issue.</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "issues.type",
+            "field": "type",
             "description": "<p>Type de l'issue.</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "issues.tags",
-            "description": "<p>Tags de l'issue.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "issues.status",
+            "field": "status",
             "description": "<p>Statut de l'issue.</p>"
           },
           {
             "group": "Success 200",
-            "type": "object[]",
-            "optional": false,
-            "field": "issues.localisation",
-            "description": "<p>Tableau d'informations liées  à la localisation.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "string",
-            "optional": false,
-            "field": "issues.localisation.type",
-            "description": "<p>Type de géomètrie.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "object[]",
-            "optional": false,
-            "field": "issues.localisation.coordinates",
-            "description": "<p>Tableau d'informations liées  aux coordonées.</p>"
-          },
-          {
-            "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "issues.descritpion",
+            "field": "descritpion",
             "description": "<p>Description de l'issues.</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "issues.photo",
+            "field": "photo",
             "description": "<p>Lien vers l'image présentant l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "user",
+            "description": "<p>Id du user signalant l'issue.</p>"
           },
           {
             "group": "Success 200",
             "type": "Object[]",
             "optional": false,
-            "field": "issues.action",
-            "description": "<p>Tableau d'information liées au actions entreprises.</p>"
+            "field": "action",
+            "description": "<p>Tableau d'information liées au actions effectuées.</p>"
           },
           {
             "group": "Success 200",
             "type": "object[]",
             "optional": false,
-            "field": "issues.responsable",
+            "field": "localisation",
+            "description": "<p>Tableau d'informations liées  à la localisation.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "localisation.type",
+            "description": "<p>Type de géomètrie.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "object[]",
+            "optional": false,
+            "field": "localisation.coordinates",
+            "description": "<p>Tableau d'informations liées  aux coordonées.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "responsable",
             "description": "<p>Information du user s'occupant de l'issue.</p>"
           },
           {
             "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "issues.responsable.id",
-            "description": "<p>Id du user responsable de l'issue.</p>"
-          },
-          {
-            "group": "Success 200",
             "type": "object[]",
             "optional": false,
-            "field": "issues.user",
-            "description": "<p>Information du user signalant l'issue.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "issues.user.id",
-            "description": "<p>Id du user signalant l'issue.</p>"
+            "field": "tags",
+            "description": "<p>Tableau des tags liés à l'issue.</p>"
           }
         ]
       }
@@ -1447,7 +1365,7 @@ define({ "api": [
     "groupTitle": "Issues",
     "sampleRequest": [
       {
-        "url": "http://localhost:3000/api/issues?coordX={valeurX}&coordY={valeurY}&rad={valeurRadius}"
+        "url": "http://localhost:3000/api/issues?coordX=:value1&coordY=:value2&rad=:valueRadius"
       }
     ]
   },
@@ -1491,115 +1409,94 @@ define({ "api": [
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "Object[]",
+            "type": "String",
             "optional": false,
-            "field": "issues",
-            "description": "<p>Liste des issues.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "issues.id",
+            "field": "_id",
             "description": "<p>Id de l'issue.</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "issues.name",
+            "field": "name",
             "description": "<p>Nom de l'issue.</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "issues.type",
+            "field": "type",
             "description": "<p>Type de l'issue.</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "issues.tags",
-            "description": "<p>Tags de l'issue.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "issues.status",
+            "field": "status",
             "description": "<p>Statut de l'issue.</p>"
           },
           {
             "group": "Success 200",
-            "type": "object[]",
-            "optional": false,
-            "field": "issues.localisation",
-            "description": "<p>Tableau d'informations liées  à la localisation.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "string",
-            "optional": false,
-            "field": "issues.localisation.type",
-            "description": "<p>Type de géomètrie.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "object[]",
-            "optional": false,
-            "field": "issues.localisation.coordinates",
-            "description": "<p>Tableau d'informations liées  aux coordonées.</p>"
-          },
-          {
-            "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "issues.descritpion",
+            "field": "descritpion",
             "description": "<p>Description de l'issues.</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "issues.photo",
+            "field": "photo",
             "description": "<p>Lien vers l'image présentant l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "user",
+            "description": "<p>Id du user signalant l'issue.</p>"
           },
           {
             "group": "Success 200",
             "type": "Object[]",
             "optional": false,
-            "field": "issues.action",
-            "description": "<p>Tableau d'information liées au actions entreprises.</p>"
+            "field": "action",
+            "description": "<p>Tableau d'information liées au actions effectuées.</p>"
           },
           {
             "group": "Success 200",
             "type": "object[]",
             "optional": false,
-            "field": "issues.responsable",
+            "field": "localisation",
+            "description": "<p>Tableau d'informations liées  à la localisation.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "localisation.type",
+            "description": "<p>Type de géomètrie.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "object[]",
+            "optional": false,
+            "field": "localisation.coordinates",
+            "description": "<p>Tableau d'informations liées  aux coordonées.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "responsable",
             "description": "<p>Information du user s'occupant de l'issue.</p>"
           },
           {
             "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "issues.responsable.id",
-            "description": "<p>Id du user responsable de l'issue.</p>"
-          },
-          {
-            "group": "Success 200",
             "type": "object[]",
             "optional": false,
-            "field": "issues.user",
-            "description": "<p>Information du user signalant l'issue.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "issues.user.id",
-            "description": "<p>Id du user signalant l'issue.</p>"
+            "field": "tags",
+            "description": "<p>Tableau des tags liés à l'issue.</p>"
           }
         ]
       }
@@ -1633,7 +1530,7 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "/issues?startDate={date1}&endDate={date2}&status=unsolved",
+    "url": "/issues?startDate=:date1&endDate=:date2&status=unsolved",
     "title": "07. Get liste des issues non-résolue entre deux dates.",
     "version": "0.1.0",
     "name": "GetUnsolvedIssuesTwoDates",
@@ -1642,7 +1539,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Exemple d'utilisation:",
-        "content": "curl -i http://localhost/issues?startDate=22-01-2016&endDate=25-01-2016&status=unsolved",
+        "content": "http://localhost/issues?startDate=22-01-2016&endDate=25-01-2016&status=unsolved",
         "type": "json"
       }
     ],
@@ -1671,115 +1568,94 @@ define({ "api": [
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "Object[]",
+            "type": "String",
             "optional": false,
-            "field": "issues",
-            "description": "<p>Liste des issues.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "issues.id",
+            "field": "_id",
             "description": "<p>Id de l'issue.</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "issues.name",
+            "field": "name",
             "description": "<p>Nom de l'issue.</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "issues.type",
+            "field": "type",
             "description": "<p>Type de l'issue.</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "issues.tags",
-            "description": "<p>Tags de l'issue.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "issues.status",
+            "field": "status",
             "description": "<p>Statut de l'issue.</p>"
           },
           {
             "group": "Success 200",
-            "type": "object[]",
-            "optional": false,
-            "field": "issues.localisation",
-            "description": "<p>Tableau d'informations liées  à la localisation.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "string",
-            "optional": false,
-            "field": "issues.localisation.type",
-            "description": "<p>Type de géomètrie.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "object[]",
-            "optional": false,
-            "field": "issues.localisation.coordinates",
-            "description": "<p>Tableau d'informations liées  aux coordonées.</p>"
-          },
-          {
-            "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "issues.descritpion",
+            "field": "descritpion",
             "description": "<p>Description de l'issues.</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "issues.photo",
+            "field": "photo",
             "description": "<p>Lien vers l'image présentant l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "user",
+            "description": "<p>Id du user signalant l'issue.</p>"
           },
           {
             "group": "Success 200",
             "type": "Object[]",
             "optional": false,
-            "field": "issues.action",
-            "description": "<p>Tableau d'information liées au actions entreprises.</p>"
+            "field": "action",
+            "description": "<p>Tableau d'information liées au actions effectuées.</p>"
           },
           {
             "group": "Success 200",
             "type": "object[]",
             "optional": false,
-            "field": "issues.responsable",
+            "field": "localisation",
+            "description": "<p>Tableau d'informations liées  à la localisation.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "localisation.type",
+            "description": "<p>Type de géomètrie.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "object[]",
+            "optional": false,
+            "field": "localisation.coordinates",
+            "description": "<p>Tableau d'informations liées  aux coordonées.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "responsable",
             "description": "<p>Information du user s'occupant de l'issue.</p>"
           },
           {
             "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "issues.responsable.id",
-            "description": "<p>Id du user responsable de l'issue.</p>"
-          },
-          {
-            "group": "Success 200",
             "type": "object[]",
             "optional": false,
-            "field": "issues.user",
-            "description": "<p>Information du user signalant l'issue.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "issues.user.id",
-            "description": "<p>Id du user signalant l'issue.</p>"
+            "field": "tags",
+            "description": "<p>Tableau des tags liés à l'issue.</p>"
           }
         ]
       }
@@ -1807,7 +1683,7 @@ define({ "api": [
     "groupTitle": "Issues",
     "sampleRequest": [
       {
-        "url": "http://localhost:3000/api/issues?startDate={date1}&endDate={date2}&status=unsolved"
+        "url": "http://localhost:3000/api/issues?startDate=:date1&endDate=:date2&status=unsolved"
       }
     ]
   },
@@ -1831,6 +1707,13 @@ define({ "api": [
             "group": "Parameter",
             "type": "String",
             "optional": false,
+            "field": "_id",
+            "description": "<p>Id de l'issue.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
             "field": "name",
             "description": "<p>Nom de l'issue.</p>"
           },
@@ -1847,34 +1730,6 @@ define({ "api": [
             "optional": false,
             "field": "status",
             "description": "<p>Statut de l'issue.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "object[]",
-            "optional": false,
-            "field": "tags",
-            "description": "<p>Tags de l'issue.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "object[]",
-            "optional": false,
-            "field": "localisation",
-            "description": "<p>Tableau d'informations liées  à la localisation.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
-            "field": "localisation.type",
-            "description": "<p>Type de géomètrie.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "object[]",
-            "optional": false,
-            "field": "localisation.coordinates",
-            "description": "<p>Tableau d'informations liées  aux coordonées.</p>"
           },
           {
             "group": "Parameter",
@@ -1902,7 +1757,42 @@ define({ "api": [
             "type": "Object[]",
             "optional": false,
             "field": "action",
-            "description": "<p>Tableau d'information liées au actions entreprises.</p>"
+            "description": "<p>Tableau d'information liées au actions effectuées.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "object[]",
+            "optional": false,
+            "field": "localisation",
+            "description": "<p>Tableau d'informations liées  à la localisation.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "localisation.type",
+            "description": "<p>Type de géomètrie.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "object[]",
+            "optional": false,
+            "field": "localisation.coordinates",
+            "description": "<p>Tableau d'informations liées  aux coordonées.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "responsable",
+            "description": "<p>Information du user s'occupant de l'issue.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "object[]",
+            "optional": false,
+            "field": "tags",
+            "description": "<p>Tableau des tags liés à l'issue.</p>"
           }
         ]
       }
@@ -1914,6 +1804,13 @@ define({ "api": [
             "group": "Success 200",
             "type": "String",
             "optional": false,
+            "field": "_id",
+            "description": "<p>Id de l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
             "field": "name",
             "description": "<p>Nom de l'issue.</p>"
           },
@@ -1954,17 +1851,10 @@ define({ "api": [
           },
           {
             "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "_id",
-            "description": "<p>Id de l'issue.</p>"
-          },
-          {
-            "group": "Success 200",
             "type": "Object[]",
             "optional": false,
             "field": "action",
-            "description": "<p>Tableau d'information liées au actions entreprises.</p>"
+            "description": "<p>Tableau d'information liées au actions effectuées.</p>"
           },
           {
             "group": "Success 200",
@@ -1989,10 +1879,17 @@ define({ "api": [
           },
           {
             "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "responsable",
+            "description": "<p>Information du user s'occupant de l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
             "type": "object[]",
             "optional": false,
             "field": "tags",
-            "description": "<p>Tags de l'issue.</p>"
+            "description": "<p>Tableau des tags liés à l'issue.</p>"
           }
         ]
       }
@@ -2002,6 +1899,251 @@ define({ "api": [
     "sampleRequest": [
       {
         "url": "http://localhost:3000/api/issues"
+      }
+    ],
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Error500-1",
+            "description": "<p>Le format de données saisies n'est pas valide.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Error400-2",
+            "description": "<p>L'<code>id</code> du user est nécessaire.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response (Error500-1):",
+          "content": "Error 500: Internal Server Error\n{\n  \"message\": \"Element validation failed\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Response (Error400-2):",
+          "content": "Error 400: Bad Request\n{\n  User ID is required\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "put",
+    "url": "/issues/:id",
+    "title": "10. Modifier une Issue éxistante.",
+    "version": "0.1.0",
+    "name": "PutIssue",
+    "group": "Issues",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>Fonction permettant de modifier les paramètres d'une issue.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>Id de l'issue.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Nom de l'issue.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "type",
+            "description": "<p>Type de l'issue.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Statut de l'issue.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "descritpion",
+            "description": "<p>Description de l'issues.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "photo",
+            "description": "<p>Lien vers l'image présentant l'issue.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "user",
+            "description": "<p>Id du user signalant l'issue.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object[]",
+            "optional": false,
+            "field": "action",
+            "description": "<p>Tableau d'information liées au actions effectuées.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "object[]",
+            "optional": false,
+            "field": "localisation",
+            "description": "<p>Tableau d'informations liées  à la localisation.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "localisation.type",
+            "description": "<p>Type de géomètrie.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "object[]",
+            "optional": false,
+            "field": "localisation.coordinates",
+            "description": "<p>Tableau d'informations liées  aux coordonées.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "responsable",
+            "description": "<p>Information du user s'occupant de l'issue.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "object[]",
+            "optional": false,
+            "field": "tags",
+            "description": "<p>Tableau des tags liés à l'issue.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>Id de l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Nom de l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "type",
+            "description": "<p>Type de l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Statut de l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "descritpion",
+            "description": "<p>Description de l'issues.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "photo",
+            "description": "<p>Lien vers l'image présentant l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "user",
+            "description": "<p>Id du user signalant l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "action",
+            "description": "<p>Tableau d'information liées au actions effectuées.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "object[]",
+            "optional": false,
+            "field": "localisation",
+            "description": "<p>Tableau d'informations liées  à la localisation.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "localisation.type",
+            "description": "<p>Type de géomètrie.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "object[]",
+            "optional": false,
+            "field": "localisation.coordinates",
+            "description": "<p>Tableau d'informations liées  aux coordonées.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "responsable",
+            "description": "<p>Information du user s'occupant de l'issue.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "object[]",
+            "optional": false,
+            "field": "tags",
+            "description": "<p>Tableau des tags liés à l'issue.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "doc/example.js",
+    "groupTitle": "Issues",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/api/issues/:id"
       }
     ],
     "error": {
@@ -2041,237 +2183,6 @@ define({ "api": [
         {
           "title": "Response (Error400-2):",
           "content": "Error 400: Bad Request\n{\n  User ID is required\n}",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
-    "type": "put",
-    "url": "/issues/:id",
-    "title": "10. Modifier une Issue éxistante.",
-    "version": "0.1.0",
-    "name": "PutIssue",
-    "group": "Issues",
-    "permission": [
-      {
-        "name": "none"
-      }
-    ],
-    "description": "<p>Fonction permettant de modifier les paramètres d'une issue.</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>Id de l'issue.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>Nom de l'issue.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "type",
-            "description": "<p>Type de l'issue.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "status",
-            "description": "<p>Statut de l'issue.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "object[]",
-            "optional": false,
-            "field": "tags",
-            "description": "<p>Tags de l'issue.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "object[]",
-            "optional": false,
-            "field": "localisation",
-            "description": "<p>Tableau d'informations liées  à la localisation.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
-            "field": "localisation.type",
-            "description": "<p>Type de géomètrie.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "object[]",
-            "optional": false,
-            "field": "localisation.coordinates",
-            "description": "<p>Tableau d'informations liées  aux coordonées.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "descritpion",
-            "description": "<p>Description de l'issues.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "photo",
-            "description": "<p>Lien vers l'image présentant l'issue.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "user",
-            "description": "<p>Id du user signalant l'issue.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "Object[]",
-            "optional": false,
-            "field": "action",
-            "description": "<p>Tableau d'information liées au actions entreprises.</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>Nom de l'issue.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "type",
-            "description": "<p>Type de l'issue.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "status",
-            "description": "<p>Statut de l'issue.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "descritpion",
-            "description": "<p>Description de l'issues.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "photo",
-            "description": "<p>Lien vers l'image présentant l'issue.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "user",
-            "description": "<p>Id du user signalant l'issue.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "_id",
-            "description": "<p>Id de l'issue.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object[]",
-            "optional": false,
-            "field": "action",
-            "description": "<p>Tableau d'information liées au actions entreprises.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "object[]",
-            "optional": false,
-            "field": "localisation",
-            "description": "<p>Tableau d'informations liées  à la localisation.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "string",
-            "optional": false,
-            "field": "localisation.type",
-            "description": "<p>Type de géomètrie.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "object[]",
-            "optional": false,
-            "field": "localisation.coordinates",
-            "description": "<p>Tableau d'informations liées  aux coordonées.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "object[]",
-            "optional": false,
-            "field": "tags",
-            "description": "<p>Tags de l'issue.</p>"
-          }
-        ]
-      }
-    },
-    "filename": "doc/example.js",
-    "groupTitle": "Issues",
-    "sampleRequest": [
-      {
-        "url": "http://localhost:3000/api/issues/:id"
-      }
-    ],
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "Error500-1",
-            "description": "<p>Le format de données saisies n'est pas valide.</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "Error500-2",
-            "description": "<p>L'<code>id</code> de l'élément saisi n'a pas été trouvé.</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response (Error500-1):",
-          "content": "Error 500: Internal Server Error\n{\n  \"message\": \"Element validation failed\"\n}",
-          "type": "json"
-        },
-        {
-          "title": "Response (Error500-2):",
-          "content": "Error 500: Internal Server Error\n{\n  \"message\": \"Cast to ObjectId failed for value \\\":id\\\" at path \\\"_id\\\"\n}",
           "type": "json"
         }
       ]
@@ -2540,69 +2451,69 @@ define({ "api": [
   {
     "type": "get",
     "url": "/users?issues=unsolved&issues=unrejected",
-    "title": "05. Get user ayant le moins d'Issues",
+    "title": "05. Get user ayant le moins d'Issues réglée",
     "version": "0.1.0",
     "name": "GetUserLeastIssues",
     "group": "Users",
-    "description": "<p>Fonction permettant d'obtenir une liste des users ayant le moins d'issues assignées.</p>",
-    "examples": [
-      {
-        "title": "Exemple d'utilisation:",
-        "content": "curl -i http://localhost/user/01",
-        "type": "json"
-      }
-    ],
+    "description": "<p>Fonction permettant d'obtenir une le user ayant le moins d'issues réglée.</p>",
     "success": {
       "fields": {
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "Object[]",
             "optional": false,
-            "field": "id",
+            "field": "users",
+            "description": "<p>Liste des users.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "users.id",
             "description": "<p>Id du user.</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "firstName",
+            "field": "users.forname",
             "description": "<p>Prénom du User.</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "name",
+            "field": "users.surname",
             "description": "<p>Nom du User.</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "nickname",
+            "field": "users.nickname",
             "description": "<p>Pseudonyme du User.</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "email",
-            "description": "<p>Email du User.</p>"
+            "field": "users.dob",
+            "description": "<p>Date de naissance du User.</p>"
           },
           {
             "group": "Success 200",
             "type": "Date",
             "optional": false,
-            "field": "birth",
-            "description": "<p>Date de naissance du User.</p>"
+            "field": "users.email",
+            "description": "<p>Email du User.</p>"
           },
           {
             "group": "Success 200",
-            "type": "String",
+            "type": "Object[]",
             "optional": false,
-            "field": "role",
-            "description": "<p>Role du User (staff ou citoyen).</p>"
+            "field": "users.role",
+            "description": "<p>Liste des Roles du User.</p>"
           }
         ]
       }
@@ -2613,15 +2524,15 @@ define({ "api": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "UserNotFound",
+            "field": "NoUsersFound",
             "description": "<p>Il n'y a pas de User sur votre base de donnée.</p>"
           }
         ]
       },
       "examples": [
         {
-          "title": "Réponse (exemple):",
-          "content": "HTTP/1.1 404 Not Found\n{\n  \"error\": \"User not found\"\n}",
+          "title": "Réponse (exemple):     ",
+          "content": "[]",
           "type": "json"
         }
       ]
@@ -2636,63 +2547,83 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "/users?issues=solved",
+    "url": "/users?issues=:status",
     "title": "04. Get users résolvant le plus d'issues",
     "version": "0.1.0",
     "name": "GetUserSolvedMost",
     "group": "Users",
     "description": "<p>Fonction permettant d'obtenir une liste de users ayant résolu le plus d'issues.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Statut de l'issues qui doit être solved.</p>"
+          }
+        ]
+      }
+    },
     "success": {
       "fields": {
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "Object[]",
             "optional": false,
-            "field": "id",
+            "field": "users",
+            "description": "<p>Liste des users.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "users.id",
             "description": "<p>Id du user.</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "firstName",
+            "field": "users.forname",
             "description": "<p>Prénom du User.</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "name",
+            "field": "users.surname",
             "description": "<p>Nom du User.</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "nickname",
+            "field": "users.nickname",
             "description": "<p>Pseudonyme du User.</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "email",
-            "description": "<p>Email du User.</p>"
+            "field": "users.dob",
+            "description": "<p>Date de naissance du User.</p>"
           },
           {
             "group": "Success 200",
             "type": "Date",
             "optional": false,
-            "field": "birth",
-            "description": "<p>Date de naissance du User.</p>"
+            "field": "users.email",
+            "description": "<p>Email du User.</p>"
           },
           {
             "group": "Success 200",
-            "type": "String",
+            "type": "Object[]",
             "optional": false,
-            "field": "role",
-            "description": "<p>Role du User (staff ou citoyen).</p>"
+            "field": "users.role",
+            "description": "<p>Liste des Roles du User.</p>"
           }
         ]
       }
@@ -2703,15 +2634,15 @@ define({ "api": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "UserNotFound",
+            "field": "NoUsersFound",
             "description": "<p>Il n'y a pas de User sur votre base de donnée.</p>"
           }
         ]
       },
       "examples": [
         {
-          "title": "Réponse (exemple):",
-          "content": "HTTP/1.1 404 Not Found\n{\n  \"error\": \"User not found\"\n}",
+          "title": "Réponse (exemple):     ",
+          "content": "[]",
           "type": "json"
         }
       ]
@@ -2720,7 +2651,7 @@ define({ "api": [
     "groupTitle": "Users",
     "sampleRequest": [
       {
-        "url": "http://localhost:3000/api/users?issues=solved"
+        "url": "http://localhost:3000/api/users?issues=:status"
       }
     ]
   },
@@ -2731,26 +2662,13 @@ define({ "api": [
     "version": "0.1.0",
     "name": "GetUserWithMostIssues",
     "group": "Users",
-    "description": "<p>Fonction permettant d'obtenir une liste de users ayant soulevé le plus d'issues.</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "Nombre",
-            "optional": false,
-            "field": "nbrIssues",
-            "description": "<p>Nombre d'Issues reliée à un User.</p>"
-          }
-        ]
-      }
-    },
+    "description": "<p>Fonction permettant d'obtenir le users ayant soulevé le plus d'issues.</p>",
     "success": {
       "fields": {
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "String",
             "optional": false,
             "field": "id",
             "description": "<p>Id du user.</p>"
@@ -2759,14 +2677,14 @@ define({ "api": [
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "firstName",
+            "field": "forname",
             "description": "<p>Prénom du User.</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "name",
+            "field": "surname",
             "description": "<p>Nom du User.</p>"
           },
           {
@@ -2780,29 +2698,22 @@ define({ "api": [
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "email",
-            "description": "<p>Email du User.</p>"
+            "field": "dob",
+            "description": "<p>Date de naissance du User.</p>"
           },
           {
             "group": "Success 200",
             "type": "Date",
             "optional": false,
-            "field": "birth",
-            "description": "<p>Date de naissance du User.</p>"
+            "field": "email",
+            "description": "<p>Email du User.</p>"
           },
           {
             "group": "Success 200",
-            "type": "String",
+            "type": "Object[]",
             "optional": false,
             "field": "role",
             "description": "<p>Role du User (staff ou citoyen).</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "nbrIssues",
-            "description": "<p>Nombre d'issues soulevée par le User.</p>"
           }
         ]
       }
@@ -2813,15 +2724,15 @@ define({ "api": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "UserNotFound",
+            "field": "NoUsersFound",
             "description": "<p>Il n'y a pas de User sur votre base de donnée.</p>"
           }
         ]
       },
       "examples": [
         {
-          "title": "Réponse (exemple):",
-          "content": "HTTP/1.1 404 Not Found\n{\n  \"error\": \"User not found\"\n}",
+          "title": "Réponse (exemple):     ",
+          "content": "[]",
           "type": "json"
         }
       ]
