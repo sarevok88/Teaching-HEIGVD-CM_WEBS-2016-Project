@@ -50,6 +50,15 @@ router.post('/', checkUser, function(req, res, next) {
 
   var issue = new Issue(req.body);
 
+  issue.pre('save', function(next){
+  now = new Date();
+  this.updated_at = now;
+  if ( !this.created_at ) {
+    this.created_at = now;
+  }
+  next();
+});
+
   issue.save(function (err, createdIssue) {
     if (err) {
       res.status(500).send(err);
@@ -68,6 +77,7 @@ router.post('/', checkUser, function(req, res, next) {
 router.get('/', function (req, res, next) {
   console.log(req.query);
   var criteria = {};
+
   // Filtre par issueType ?issueType={string} (aussi si plsr type)
   if (typeof(req.query.issueType) == "object" && req.query.issueType.length) {
     criteria.type = { $in: req.query.issueType };
@@ -82,9 +92,16 @@ router.get('/', function (req, res, next) {
     criteria.status = req.query.status;
   }
 
+  //filtre par tags
+  if (typeof(req.query.tag) == "object" && req.query.format.length) {
+    criteria.tags = { $in: req.query.tag };
+  } else if (req.query.tag) {
+    criteria.tags = req.query.tag;
+  }
+
   //  Filtre par startDate ?startDate=
   if (req.query.startDate) {
-    criteria.startDate = req.query.startDate;
+    criteria.created_at = req.query.startDate;
   }
 
   //  Filtre par endDate ?endDate=
@@ -92,6 +109,22 @@ router.get('/', function (req, res, next) {
     criteria.endDate = req.query.endDate;
   }
 
+  //filtre par zone géographique
+  var coordX =req.query.coordX;
+  coordY = req.query.coordY;
+  radius = req.query.rad;
+
+  if (coordX && coordY && radius){
+    criteria.localisation = {
+      $near: {
+        $geometry: {
+          type: "Point",
+          coordinates: [parseFloat(coordX),parseFloat(coordY)]
+        },
+        $maxDistance: parseInt(radius, 10)
+      }
+    }
+  }
 
 
   Issue.find(criteria, function (err, issues) {
@@ -106,30 +139,28 @@ router.get('/', function (req, res, next) {
 
 /**
 *récupération d'une issue via son ID
+(dans la version avec le front, on nous renvoie la view)
 */
 // GET /api/issues/:id
 router.get('/:id', function (req, res, next) {
 
   var issueId = req.params.id;
-  if (!mongoose.Types.ObjectId.isValid(issueId)){
-    res.status(404).send("404 - Issue not found");
-  }
-  else{
-    Issue.findById(issueId, function(err, issue) {
-      if (err) {
-        res.status(500).send(err);
-        return;
-      }
-      else if (!issue) {
-        res.status(404).send('404 - Issue not found');
-        return;
-      }
-    })
+
+  Issue.findById(issueId, function(err, issue) {
+    if (err) {
+      res.status(500).send(err);
+      return;
+    } else if (!issue) {
+      res.status(404).send('Issue not found');
+      return;
+    }
 
     res.send(issue);
-  }
+  });
 });
 
+/**
+*/
 // PUT /api/issues/:id
 router.put('/:id', function (req, res, next) {
 
