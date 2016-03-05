@@ -63,10 +63,7 @@ function getUserById() { return; }
  *
  * @apiDescription Fonction permettant d'obtenir le users ayant soulevé le plus d'issues.
  *
- * @apiParam {Nombre} nbrIssues Nombre d'Issues reliée à un User.
- *
- *
- * @apiSuccess {String}   id            Id du user.
+ *  @apiSuccess {String}   id            Id du user.
  * @apiSuccess {String}   forname       Prénom du User.
  * @apiSuccess {String}   surname       Nom du User.
  * @apiSuccess {String}   nickname      Pseudonyme du User.
@@ -74,32 +71,31 @@ function getUserById() { return; }
  * @apiSuccess {Date}     email         Email du User.
  * @apiSuccess {Object[]} role          Role du User (staff ou citoyen).
  *
- * @apiError UserNotFound   Il n'y a pas de User sur votre base de donnée.
+ * @apiError NoUsersFound   Il n'y a pas de User sur votre base de donnée.
  *
- * @apiErrorExample Réponse (exemple):
- *     HTTP/1.1 404 Not Found
- *     {
- *       "error": "User not found"
- *     }
+ * @apiErrorExample Réponse (exemple):     
+ *     []
  */
 function GetUserWithMostIssues() { return; }
 
 /**
- * @api {get} /users?issues=solved 04. Get users résolvant le plus d'issues
+ * @api {get} /users?issues=:status 04. Get users résolvant le plus d'issues
  * @apiVersion 0.1.0
  * @apiName GetUserSolvedMost
  * @apiGroup Users
  *
  * @apiDescription Fonction permettant d'obtenir une liste de users ayant résolu le plus d'issues.
+ * 
+ * * @apiParam {String} status Statut de l'issues qui doit être solved.
  *
- *
- * @apiSuccess {Number}   id            Id du user.
- * @apiSuccess {String}   firstName     Prénom du User.
- * @apiSuccess {String}   name          Nom du User.
- * @apiSuccess {String}   nickname      Pseudonyme du User.
- * @apiSuccess {String}   email         Email du User.
- * @apiSuccess {Date}     birth         Date de naissance du User.
- * @apiSuccess {String}   role          Role du User (staff ou citoyen).
+ * @apiSuccess {Object[]} users               Liste des users. 
+ * @apiSuccess {String}   users.id            Id du user.
+ * @apiSuccess {String}   users.forname       Prénom du User.
+ * @apiSuccess {String}   users.surname       Nom du User.
+ * @apiSuccess {String}   users.nickname      Pseudonyme du User.
+ * @apiSuccess {String}   users.dob           Date de naissance du User.
+ * @apiSuccess {Date}     users.email         Email du User.
+ * @apiSuccess {Object[]} users.role          Liste des Roles du User.
  *
  * @apiError NoUsersFound   Il n'y a pas de User sur votre base de donnée.
  *
@@ -109,34 +105,29 @@ function GetUserWithMostIssues() { return; }
 function GetUserSolvedMost() { return; }
 
 /**
- * @api {get} /users?issues=unsolved&issues=unrejected 05. Get user ayant le moins d'Issues
+ * @api {get} /users?issues=unsolved&issues=unrejected 05. Get user ayant le moins d'Issues réglée
  * @apiVersion 0.1.0
  * @apiName GetUserLeastIssues
  * @apiGroup Users
  *
- * @apiDescription Fonction permettant d'obtenir une liste des users ayant le moins d'issues assignées.
+ * @apiDescription Fonction permettant d'obtenir une le user ayant le moins d'issues réglée.
  *
  *
- * @apiExample Exemple d'utilisation:
- * curl -i http://localhost/user/01
+ * @apiSuccess {Object[]} users               Liste des users. 
+ * @apiSuccess {String}   users.id            Id du user.
+ * @apiSuccess {String}   users.forname       Prénom du User.
+ * @apiSuccess {String}   users.surname       Nom du User.
+ * @apiSuccess {String}   users.nickname      Pseudonyme du User.
+ * @apiSuccess {String}   users.dob           Date de naissance du User.
+ * @apiSuccess {Date}     users.email         Email du User.
+ * @apiSuccess {Object[]} users.role          Liste des Roles du User.
  *
- * @apiSuccess {Number}   id            Id du user.
- * @apiSuccess {String}   firstName     Prénom du User.
- * @apiSuccess {String}   name          Nom du User.
- * @apiSuccess {String}   nickname      Pseudonyme du User.
- * @apiSuccess {String}   email         Email du User.
- * @apiSuccess {Date}     birth         Date de naissance du User.
- * @apiSuccess {String}   role          Role du User (staff ou citoyen).
+ * @apiError NoUsersFound   Il n'y a pas de User sur votre base de donnée.
  *
- * @apiError UserNotFound    Il n'y a pas de User sur votre base de donnée.
- *
- * @apiErrorExample Réponse (exemple):
- *     HTTP/1.1 404 Not Found
- *     {
- *       "error": "User not found"
- *     }
+ * @apiErrorExample Réponse (exemple):     
+ *     []
  */
-function GetUserSolvedMost() { return; }
+function GetUserUnsolvedMost() { return; }
 
 /**
  * @api {post} /users 06. Créer un nouveau User
@@ -228,82 +219,76 @@ function DeleteUser() { return; }
  *
  * @apiDescription Fonction permettant d'obtenir tous les comments poster sur notre API.
  *
- *
- * @apiExample Exemple d'utilisation:
- * curl -i http://localhost/comments
  * 
  * 
  * @apiSuccess {Object[]} comments            Liste des comments. 
+ * @apiSuccess  {number}   comments.Id          Id du comment.
  * @apiSuccess {Number}   comments.authorId   Id de l'auteur du comment.
- * @apiSuccess {Number}   comments.commentId  Id du comment.
  * @apiSuccess {String}   comments.text       Contenu du comment.
  *
- * @apiError CommentNotFound   Il n'y a pas de Comment sur votre base de donnée.
+ * @apiError NoCommentsFound   Il n'y a pas de comment sur votre base de donnée.
  *
- * @apiErrorExample Réponse (exemple):
- *     HTTP/1.1 404 Not Found
- *     {
- *       "error": "Comment(s) not found"
- *     }
+ * @apiErrorExample Réponse (exemple):     
+ *     []
  */
 function GetComments() { return; }
 
 /**
- * @api {get} /comments?issueId={id} 02. Get comment via Id.
+ * @api {get} /comments/:id 02. Get comment via son Id.
  * @apiVersion 0.1.0
  * @apiName GetCommentsById
  * @apiGroup Comments
  *
- * @apiDescription Fonction permettant d'obtenir un commentaire spécifique via son ID.
+ * @apiDescription Fonction permettant d'obtenir un comments via son ID.
  *
  *
  * @apiExample Exemple d'utilisation:
- * curl -i http://localhost/comments/01
+ * curl -i http://localhost:3000/api/comments/56d05eefa0b1214c16facb19
  * 
- * @apiParam {Nombre} id Identifiant unique du comment.
+ * @apiParam {string} id Identifiant unique du comment.
  * 
+ * @apiSuccess {number}   Id           Id du comment.
  * @apiSuccess {Number}   authorId   Id de l'auteur du comment.
- * @apiSuccess {Number}   commentId  Id du comment.
  * @apiSuccess {String}   text       Contenu du comment.
  *
- * @apiError CommentNotFound   Il n'y a aucun comment correspondant à cet Id sur votre base de donnée.
+ * @apiError Error500   L'<code>id</code> du comment saisi n'a pas été trouvé.
  *
- * @apiErrorExample Réponse (exemple):
- *     HTTP/1.1 404 Not Found
+ * @apiErrorExample Réponse (Error 500):
+ *     Error 500: Internal Server Error
  *     {
- *       "error": "Comment not found"
+ *       "message": "Cast to ObjectId failed for value \"{value}\" at path \"_id\""
  *     }
  */
 function GetCommentsById() { return; }
 
 /**
- * @api {get} /comments?issueId={id} 03. Get comments appartenant à une issue.
+ * @api {get} /comments?issueId=:id 03. Get comment via issue Id.
  * @apiVersion 0.1.0
- * @apiName GetCommentsByIssue
+ * @apiName GetCommentsByIssueId
  * @apiGroup Comments
  *
- * @apiDescription Fonction permettant d'obtenir un commentaire spécifique via son ID.
+ * @apiDescription Fonction permettant d'obtenir les comments appartenant à une issue spécifique via son ID.
  *
  *
  * @apiExample Exemple d'utilisation:
- * curl -i http://localhost/comments?issueId=01
+ * curl -i http://localhost:3000/api/comments?issueId=56d05eefa0b1214c16facb19
  * 
- * @apiParam {Nombre} id Identifiant unique de l'Issue.
+ * @apiParam {string} id Identifiant unique de l'issue.
  * 
- * @apiSuccess {Object[]} comments            Liste des comments. 
+ * @apiSuccess {Object[]} comments            Liste des comments.
+ * @apiSuccess  {number}   comments.Id         Id du comment. 
  * @apiSuccess {Number}   comments.authorId   Id de l'auteur du comment.
- * @apiSuccess {Number}   comments.commentId  Id du comment.
  * @apiSuccess {String}   comments.text       Contenu du comment.
  *
- * @apiError CommentNotFound   Il n'y a aucun comment associer à cet Id sur votre base de donnée.
+ * @apiError Error500   L'<code>id</code> de l'issue saisie n'a pas été trouvé.
  *
- * @apiErrorExample Réponse (exemple):
- *     HTTP/1.1 404 Not Found
+ * @apiErrorExample Réponse (Error 500):
+ *     Error 500: Internal Server Error
  *     {
- *       "error": "Comment(s) not found"
+ *       "message": "Cast to ObjectId failed for value \"{value}\" at path \"_id\""
  *     }
  */
-function GetCommentsByIssue() { return; }
+function GetCommentsByIssueId() { return; }
 
 /**
  * @api {post} /comments 04. Créer un nouveau comment
@@ -314,8 +299,8 @@ function GetCommentsByIssue() { return; }
  *
  * @apiDescription Fonction permettant de créer un nouveau Comment.
  *
+ * @apiParam {number}   Id           Id du comment.
  * @apiParam {Number}   authorId     Id de l'auteur du comment.
- * @apiParam {number}   commentId    Id du comment.
  * @apiParam {String}   text         Contenu du comment.
  * 
  * @apiSuccess {Number} id            Id du nouveau comment.
@@ -333,8 +318,8 @@ function postComment() { return; }
  *
  * @apiDescription Fonction permettant de modifier les paramètres d'un comment.
  *
+ * @apiParam {number}   Id           Id du comment.
  * @apiParam {Number}   authorId     Id de l'auteur du comment.
- * @apiParam {number}   commentId    Id du comment.
  * @apiParam {String}   text         Contenu du comment.
  *
  *@apiSuccess {Number} id            Id du comment mis à jour.
@@ -353,10 +338,6 @@ function putComment() { return; }
  * @apiDescription Fonction permettant de supprimer un comment.
  *
  * @apiParam {Number}    authorId      Id de l'auteur du comment.
- * 
- * @apiSuccess {Number}  id            Id du comment supprimer.
- *
- * @apiSuccess {Number}  id            Id du comment mis à jour.
  *
  * @apiUse CreateElementError
  */
@@ -371,7 +352,6 @@ function deleteComment() { return; }
  * @apiDescription Fonction permettant d'obtenir toutes les issues enregistrée sur notre API. 
  *
  * 
- * 
  * @apiSuccess {Object[]} issues                            Liste des issues. 
  * @apiSuccess {String}   issues._id                        Id de l'issue.
  * @apiSuccess {String}   issues.name                       Nom de l'issue.
@@ -384,12 +364,11 @@ function deleteComment() { return; }
  * @apiSuccess {object[]} issues.localisation               Tableau d'informations liées  à la localisation.
  * @apiSuccess {string}   issues.localisation.type          Type de géomètrie.
  * @apiSuccess {object[]} issues.localisation.coordinates   Tableau d'informations liées  aux coordonées.
- * @apiSuccess {String} issues.responsable                Information du user s'occupant de l'issue.
  * @apiSuccess {object[]} issues.tags                       Tableau des tags liés à l'issue.
  * @apiSuccess {String}   issues.responsable                Id du user responsable de l'issue.
  * 
  *
-  * @apiError NoIssueFound   Il n'y a pas d'Issue sur votre base de donnée.
+ * @apiError NoIssueFound   Il n'y a pas d'Issue sur votre base de donnée.
  *
  * @apiErrorExample Réponse (exemple):     
  *     []
@@ -423,9 +402,8 @@ function getIssues() { return; }
  * @apiSuccess {object[]} localisation.coordinates   Tableau d'informations liées  aux coordonées.
  * @apiSuccess {String}   responsable                Information du user s'occupant de l'issue.
  * @apiSuccess {object[]} tags                       Tableau des tags liés à l'issue.
- * @apiSuccess {String}   responsable                Id du user responsable de l'issue.
  *
- * @apiError Error500   L'<code>id</code> du de l'issue saisie n'a pas été trouvé.
+ * @apiError Error500   L'<code>id</code> de l'issue saisie n'a pas été trouvé.
  *
  * @apiErrorExample Réponse (Error 500):
  *     Error 500: Internal Server Error
@@ -436,7 +414,7 @@ function getIssues() { return; }
 function getIssueById() { return; }
 
 /**
- * @api {get} /issues?userId={id} 03. Get issues soulevée par un user.
+ * @api {get} /issues?userId=:id 03. Get issues soulevée par un user.
  * @apiVersion 0.1.0
  * @apiName GetIssuesByUser
  * @apiGroup Issues
@@ -445,40 +423,38 @@ function getIssueById() { return; }
  *
  *
  * @apiExample Exemple d'utilisation:
- * curl -i http://localhost/issues?userId=01
+ * http://localhost:3000/api/issues?userId=56d2d706e76014600d42f982
  * 
- * @apiParam {Nombre} id Identifiant unique de l'Issue.
+ * @apiParam {Nombre} id Identifiant unique du user.
  * 
  * @apiSuccess {Object[]} issues                            Liste des issues. 
- * @apiSuccess {Number}   issues.id                         Id de l'issue.
+ * @apiSuccess {String}   issues._id                        Id de l'issue.
  * @apiSuccess {String}   issues.name                       Nom de l'issue.
  * @apiSuccess {String}   issues.type                       Type de l'issue.
- * @apiSuccess {String}   issues.tags                       Tags de l'issue.
  * @apiSuccess {String}   issues.status                     Statut de l'issue.
+ * @apiSuccess {String}   issues.descritpion                Description de l'issues.
+ * @apiSuccess {String}   issues.photo                      Lien vers l'image présentant l'issue.
+ * @apiSuccess {String}   issues.user                       Id du user signalant l'issue.
+ * @apiSuccess {Object[]} issues.action                     Tableau d'information liées au actions effectuées.
  * @apiSuccess {object[]} issues.localisation               Tableau d'informations liées  à la localisation.
  * @apiSuccess {string}   issues.localisation.type          Type de géomètrie.
  * @apiSuccess {object[]} issues.localisation.coordinates   Tableau d'informations liées  aux coordonées.
- * @apiSuccess {String}   issues.descritpion                Description de l'issues.
- * @apiSuccess {String}   issues.photo                      Lien vers l'image présentant l'issue.
- * @apiSuccess {Object[]} issues.action                     Tableau d'information liées au actions entreprises.
- * @apiSuccess {object[]} issues.responsable                Information du user s'occupant de l'issue.
- * @apiSuccess {Number}   issues.responsable.id             Id du user responsable de l'issue.
- * @apiSuccess {object[]} issues.user                       Information du user signalant l'issue.
- * @apiSuccess {Number}   issues.user.id                    Id du user signalant l'issue.
+ * @apiSuccess {object[]} issues.tags                       Tableau des tags liés à l'issue.
+ * @apiSuccess {String}   issues.responsable                Id du user responsable de l'issue.
  * 
  *
- * @apiError IssueNotFound   Il n'y a aucune issue associée à cet Id sur votre base de donnée.
+ * @apiError Error500   L'<code>id</code> de l'issue saisie n'a pas été trouvé.
  *
- * @apiErrorExample Réponse (exemple):
- *     HTTP/1.1 404 Not Found
+ * @apiErrorExample Réponse (Error 500):
+ *     Error 500: Internal Server Error
  *     {
- *       "error": "Issue(s) not found"
+ *       "message": "Cast to ObjectId failed for value \"{value}\" at path \"_id\""
  *     }
  */
 function GetIssueByUser() { return; }
 
 /**
- * @api {get} /issues?issuesType={type} 04. Get issues appartenant à un type spécifique.
+ * @api {get} /issues?issuesType=:type 04. Get issues appartenant à un type spécifique.
  * @apiVersion 0.1.0
  * @apiName GetIssuesByType
  * @apiGroup Issues
@@ -487,34 +463,32 @@ function GetIssueByUser() { return; }
  *
  *
  * @apiExample Exemple d'utilisation:
- * curl -i http://localhost/issues?issuesType=graffiti
+ * http://localhost:3000/api/issues?issuesType=dégat
  * 
  * @apiParam {string} Nom du type d'issue.
  * 
  * @apiSuccess {Object[]} issues                            Liste des issues. 
- * @apiSuccess {Number}   issues.id                         Id de l'issue.
+ * @apiSuccess {String}   issues._id                        Id de l'issue.
  * @apiSuccess {String}   issues.name                       Nom de l'issue.
  * @apiSuccess {String}   issues.type                       Type de l'issue.
- * @apiSuccess {String}   issues.tags                       Tags de l'issue.
  * @apiSuccess {String}   issues.status                     Statut de l'issue.
+ * @apiSuccess {String}   issues.descritpion                Description de l'issues.
+ * @apiSuccess {String}   issues.photo                      Lien vers l'image présentant l'issue.
+ * @apiSuccess {String}   issues.user                       Id du user signalant l'issue.
+ * @apiSuccess {Object[]} issues.action                     Tableau d'information liées au actions effectuées.
  * @apiSuccess {object[]} issues.localisation               Tableau d'informations liées  à la localisation.
  * @apiSuccess {string}   issues.localisation.type          Type de géomètrie.
  * @apiSuccess {object[]} issues.localisation.coordinates   Tableau d'informations liées  aux coordonées.
- * @apiSuccess {String}   issues.descritpion                Description de l'issues.
- * @apiSuccess {String}   issues.photo                      Lien vers l'image présentant l'issue.
- * @apiSuccess {Object[]} issues.action                     Tableau d'information liées au actions entreprises.
- * @apiSuccess {object[]} issues.responsable                Information du user s'occupant de l'issue.
- * @apiSuccess {Number}   issues.responsable.id             Id du user responsable de l'issue.
- * @apiSuccess {object[]} issues.user                       Information du user signalant l'issue.
- * @apiSuccess {Number}   issues.user.id                    Id du user signalant l'issue.
+ * @apiSuccess {object[]} issues.tags                       Tableau des tags liés à l'issue.
+ * @apiSuccess {String}   issues.responsable                Id du user responsable de l'issue.
  * 
  *
- * @apiError IssueNotFound   Il n'y a aucune issue associée à ce Type sur votre base de donnée.
+ * @apiError Error500   Le<code>type</code> de l'issue saisie n'a pas été trouvé.
  *
- * @apiErrorExample Réponse (exemple):
- *     HTTP/1.1 404 Not Found
+ * @apiErrorExample Réponse (Error 500):
+ *     Error 500: Internal Server Error
  *     {
- *       "error": "Issue(s) not found"
+ *       "message": "Cast to ObjectId failed for value \"{type}\" at path \"type\""
  *     }
  */
 function GetIssueByType() { return; }
@@ -529,7 +503,7 @@ function GetIssueByType() { return; }
  *
  *
  * @apiExample Exemple d'utilisation:
- * curl -i http://localhost/actions?issueId=01
+ * http://localhost:3000/api/actions?issueId=01
  * 
  * @apiParam {number} Id de l'issue.
  * 
@@ -563,22 +537,19 @@ function GetActionsOnIssue() { return; }
  * @apiParam {date} Date1 Date de début.
  * @apiParam {date} Date2 date de fin.
  * 
- * @apiSuccess {Object[]} issues                            Liste des issues. 
- * @apiSuccess {Number}   issues.id                         Id de l'issue.
- * @apiSuccess {String}   issues.name                       Nom de l'issue.
- * @apiSuccess {String}   issues.type                       Type de l'issue.
- * @apiSuccess {String}   issues.tags                       Tags de l'issue.
- * @apiSuccess {String}   issues.status                     Statut de l'issue.
- * @apiSuccess {object[]} issues.localisation               Tableau d'informations liées  à la localisation.
- * @apiSuccess {string}   issues.localisation.type          Type de géomètrie.
- * @apiSuccess {object[]} issues.localisation.coordinates   Tableau d'informations liées  aux coordonées.
- * @apiSuccess {String}   issues.descritpion                Description de l'issues.
- * @apiSuccess {String}   issues.photo                      Lien vers l'image présentant l'issue.
- * @apiSuccess {Object[]} issues.action                     Tableau d'information liées au actions entreprises.
- * @apiSuccess {object[]} issues.responsable                Information du user s'occupant de l'issue.
- * @apiSuccess {Number}   issues.responsable.id             Id du user responsable de l'issue.
- * @apiSuccess {object[]} issues.user                       Information du user signalant l'issue.
- * @apiSuccess {Number}   issues.user.id                    Id du user signalant l'issue.
+ * @apiSuccess {String}   _id                        Id de l'issue.
+ * @apiSuccess {String}   name                       Nom de l'issue.
+ * @apiSuccess {String}   type                       Type de l'issue.
+ * @apiSuccess {String}   status                     Statut de l'issue.
+ * @apiSuccess {String}   descritpion                Description de l'issues.
+ * @apiSuccess {String}   photo                      Lien vers l'image présentant l'issue.
+ * @apiSuccess {String}   user                       Id du user signalant l'issue.
+ * @apiSuccess {Object[]} action                     Tableau d'information liées au actions effectuées.
+ * @apiSuccess {object[]} localisation               Tableau d'informations liées  à la localisation.
+ * @apiSuccess {string}   localisation.type          Type de géomètrie.
+ * @apiSuccess {object[]} localisation.coordinates   Tableau d'informations liées  aux coordonées.
+ * @apiSuccess {String}   responsable                Information du user s'occupant de l'issue.
+ * @apiSuccess {object[]} tags                       Tableau des tags liés à l'issue.
  *
  * @apiError IssueNotFound   Il n'y a aucune issue résolue entre ces deux dates.
  *
@@ -591,7 +562,7 @@ function GetActionsOnIssue() { return; }
 function GetActionsOnIssue() { return; }
 
 /**
- * @api {get} /issues?startDate={date1}&endDate={date2}&status=unsolved 07. Get liste des issues non-résolue entre deux dates.
+ * @api {get} /issues?startDate=:date1&endDate=:date2&status=unsolved 07. Get liste des issues non-résolue entre deux dates.
  * @apiVersion 0.1.0
  * @apiName GetUnsolvedIssuesTwoDates
  * @apiGroup Issues
@@ -600,27 +571,24 @@ function GetActionsOnIssue() { return; }
  *
  *
  * @apiExample Exemple d'utilisation:
- * curl -i http://localhost/issues?startDate=22-01-2016&endDate=25-01-2016&status=unsolved
+ * http://localhost/issues?startDate=22-01-2016&endDate=25-01-2016&status=unsolved
  * 
  * @apiParam {date} Date1 Date de début.
  * @apiParam {date} Date2 date de fin.
  * 
- * @apiSuccess {Object[]} issues                            Liste des issues. 
- * @apiSuccess {Number}   issues.id                         Id de l'issue.
- * @apiSuccess {String}   issues.name                       Nom de l'issue.
- * @apiSuccess {String}   issues.type                       Type de l'issue.
- * @apiSuccess {String}   issues.tags                       Tags de l'issue.
- * @apiSuccess {String}   issues.status                     Statut de l'issue.
- * @apiSuccess {object[]} issues.localisation               Tableau d'informations liées  à la localisation.
- * @apiSuccess {string}   issues.localisation.type          Type de géomètrie.
- * @apiSuccess {object[]} issues.localisation.coordinates   Tableau d'informations liées  aux coordonées.
- * @apiSuccess {String}   issues.descritpion                Description de l'issues.
- * @apiSuccess {String}   issues.photo                      Lien vers l'image présentant l'issue.
- * @apiSuccess {Object[]} issues.action                     Tableau d'information liées au actions entreprises.
- * @apiSuccess {object[]} issues.responsable                Information du user s'occupant de l'issue.
- * @apiSuccess {Number}   issues.responsable.id             Id du user responsable de l'issue.
- * @apiSuccess {object[]} issues.user                       Information du user signalant l'issue.
- * @apiSuccess {Number}   issues.user.id                    Id du user signalant l'issue.
+ * @apiSuccess {String}   _id                        Id de l'issue.
+ * @apiSuccess {String}   name                       Nom de l'issue.
+ * @apiSuccess {String}   type                       Type de l'issue.
+ * @apiSuccess {String}   status                     Statut de l'issue.
+ * @apiSuccess {String}   descritpion                Description de l'issues.
+ * @apiSuccess {String}   photo                      Lien vers l'image présentant l'issue.
+ * @apiSuccess {String}   user                       Id du user signalant l'issue.
+ * @apiSuccess {Object[]} action                     Tableau d'information liées au actions effectuées.
+ * @apiSuccess {object[]} localisation               Tableau d'informations liées  à la localisation.
+ * @apiSuccess {string}   localisation.type          Type de géomètrie.
+ * @apiSuccess {object[]} localisation.coordinates   Tableau d'informations liées  aux coordonées.
+ * @apiSuccess {String}   responsable                Information du user s'occupant de l'issue.
+ * @apiSuccess {object[]} tags                       Tableau des tags liés à l'issue.
  *
  * @apiError IssueNotFound   Il n'y a aucune issue non-résolue entre ces deux dates.
  *
@@ -633,7 +601,7 @@ function GetActionsOnIssue() { return; }
 function GetActionsOnIssue() { return; }
 
 /**
- * @api {get} /issues?coordX={valeurX}&coordY={valeurY}&rad={valeurRadius} 08. Get liste des issues dans une région.
+ * @api {get} /issues?coordX=:value1&coordY=:value2&rad=:valueRadius 08. Get liste des issues dans une région.
  * @apiVersion 0.1.0
  * @apiName GetIssuesInRadius
  * @apiGroup Issues
@@ -642,28 +610,25 @@ function GetActionsOnIssue() { return; }
  *
  *
  * @apiExample Exemple d'utilisation:
- * curl -i http://localhost/issues?coordX=15&coordY=28&rad=10
+ * http://localhost:3000/api/issues?coordX=0.333&coordY=3.222&rad=0.2
  * 
- * @apiParam {number} valeurX Coordonée en X.
- * @apiParam {number} valeurY Coordonée en Y.
- * @apiParam {number} valeurRadius Taille du rayon de recherche.
+ * @apiParam {number} value1 Coordonée en X.
+ * @apiParam {number} value2 Coordonée en Y.
+ * @apiParam {number} valueRadius Taille du rayon de recherche.
  * 
- * @apiSuccess {Object[]} issues                            Liste des issues. 
- * @apiSuccess {Number}   issues.id                         Id de l'issue.
- * @apiSuccess {String}   issues.name                       Nom de l'issue.
- * @apiSuccess {String}   issues.type                       Type de l'issue.
- * @apiSuccess {String}   issues.tags                       Tags de l'issue.
- * @apiSuccess {String}   issues.status                     Statut de l'issue.
- * @apiSuccess {object[]} issues.localisation               Tableau d'informations liées  à la localisation.
- * @apiSuccess {string}   issues.localisation.type          Type de géomètrie.
- * @apiSuccess {object[]} issues.localisation.coordinates   Tableau d'informations liées  aux coordonées.
- * @apiSuccess {String}   issues.descritpion                Description de l'issues.
- * @apiSuccess {String}   issues.photo                      Lien vers l'image présentant l'issue.
- * @apiSuccess {Object[]} issues.action                     Tableau d'information liées au actions entreprises.
- * @apiSuccess {object[]} issues.responsable                Information du user s'occupant de l'issue.
- * @apiSuccess {Number}   issues.responsable.id             Id du user responsable de l'issue.
- * @apiSuccess {object[]} issues.user                       Information du user signalant l'issue.
- * @apiSuccess {Number}   issues.user.id                    Id du user signalant l'issue.
+ * @apiSuccess {String}   _id                        Id de l'issue.
+ * @apiSuccess {String}   name                       Nom de l'issue.
+ * @apiSuccess {String}   type                       Type de l'issue.
+ * @apiSuccess {String}   status                     Statut de l'issue.
+ * @apiSuccess {String}   descritpion                Description de l'issues.
+ * @apiSuccess {String}   photo                      Lien vers l'image présentant l'issue.
+ * @apiSuccess {String}   user                       Id du user signalant l'issue.
+ * @apiSuccess {Object[]} action                     Tableau d'information liées au actions effectuées.
+ * @apiSuccess {object[]} localisation               Tableau d'informations liées  à la localisation.
+ * @apiSuccess {string}   localisation.type          Type de géomètrie.
+ * @apiSuccess {object[]} localisation.coordinates   Tableau d'informations liées  aux coordonées.
+ * @apiSuccess {String}   responsable                Information du user s'occupant de l'issue.
+ * @apiSuccess {object[]} tags                       Tableau des tags liés à l'issue.
  *
  * @apiError IssueNotFound   Il n'y a aucune issue dans ce secteur.
  *
@@ -684,34 +649,36 @@ function GetActionsOnIssue() { return; }
  *
  * @apiDescription Fonction permettant de créer une nouvelle Issue.
  *
+ * @apiParam {String}   _id                        Id de l'issue.
  * @apiParam {String}   name                       Nom de l'issue.
  * @apiParam {String}   type                       Type de l'issue.
  * @apiParam {String}   status                     Statut de l'issue.
- * @apiParam {object[]} tags                       Tags de l'issue.
- * @apiParam {object[]} localisation               Tableau d'informations liées  à la localisation.
- * @apiParam {string}   localisation.type          Type de géomètrie.
- * @apiParam {object[]} localisation.coordinates   Tableau d'informations liées  aux coordonées.
  * @apiParam {String}   descritpion                Description de l'issues.
  * @apiParam {String}   photo                      Lien vers l'image présentant l'issue.
  * @apiParam {String}   user                       Id du user signalant l'issue.
- * @apiParam {Object[]} action                     Tableau d'information liées au actions entreprises.
+ * @apiParam {Object[]} action                     Tableau d'information liées au actions effectuées.
+ * @apiParam {object[]} localisation               Tableau d'informations liées  à la localisation.
+ * @apiParam {string}   localisation.type          Type de géomètrie.
+ * @apiParam {object[]} localisation.coordinates   Tableau d'informations liées  aux coordonées.
+ * @apiParam {String}   responsable                Information du user s'occupant de l'issue.
+ * @apiParam {object[]} tags                       Tableau des tags liés à l'issue.
  * 
  *
+ * @apiSuccess {String}   _id                        Id de l'issue.
  * @apiSuccess {String}   name                       Nom de l'issue.
  * @apiSuccess {String}   type                       Type de l'issue.
  * @apiSuccess {String}   status                     Statut de l'issue.
  * @apiSuccess {String}   descritpion                Description de l'issues.
  * @apiSuccess {String}   photo                      Lien vers l'image présentant l'issue.
  * @apiSuccess {String}   user                       Id du user signalant l'issue.
- * @apiSuccess {String}   _id                        Id de l'issue.
- * @apiSuccess {Object[]} action                     Tableau d'information liées au actions entreprises.
+ * @apiSuccess {Object[]} action                     Tableau d'information liées au actions effectuées.
  * @apiSuccess {object[]} localisation               Tableau d'informations liées  à la localisation.
  * @apiSuccess {string}   localisation.type          Type de géomètrie.
  * @apiSuccess {object[]} localisation.coordinates   Tableau d'informations liées  aux coordonées.
- * @apiSuccess {object[]} tags                       Tags de l'issue.
+ * @apiSuccess {String}   responsable                Information du user s'occupant de l'issue.
+ * @apiSuccess {object[]} tags                       Tableau des tags liés à l'issue.
  *
  * @apiUse CreateElementError
- * @apiUse IdNotFound
  * @apiUse UserRequired
  */
 function postIssue() { return; }
@@ -725,35 +692,38 @@ function postIssue() { return; }
  *
  * @apiDescription Fonction permettant de modifier les paramètres d'une issue.
  *
- * @apiParam {String}   id                        Id de l'issue.
+ * @apiParam {String}   _id                        Id de l'issue.
  * @apiParam {String}   name                       Nom de l'issue.
  * @apiParam {String}   type                       Type de l'issue.
  * @apiParam {String}   status                     Statut de l'issue.
- * @apiParam {object[]} tags                       Tags de l'issue.
- * @apiParam {object[]} localisation               Tableau d'informations liées  à la localisation.
- * @apiParam {string}   localisation.type          Type de géomètrie.
- * @apiParam {object[]} localisation.coordinates   Tableau d'informations liées  aux coordonées.
  * @apiParam {String}   descritpion                Description de l'issues.
  * @apiParam {String}   photo                      Lien vers l'image présentant l'issue.
  * @apiParam {String}   user                       Id du user signalant l'issue.
- * @apiParam {Object[]} action                     Tableau d'information liées au actions entreprises.
+ * @apiParam {Object[]} action                     Tableau d'information liées au actions effectuées.
+ * @apiParam {object[]} localisation               Tableau d'informations liées  à la localisation.
+ * @apiParam {string}   localisation.type          Type de géomètrie.
+ * @apiParam {object[]} localisation.coordinates   Tableau d'informations liées  aux coordonées.
+ * @apiParam {String}   responsable                Information du user s'occupant de l'issue.
+ * @apiParam {object[]} tags                       Tableau des tags liés à l'issue.
  * 
  *
+ * @apiSuccess {String}   _id                        Id de l'issue.
  * @apiSuccess {String}   name                       Nom de l'issue.
  * @apiSuccess {String}   type                       Type de l'issue.
  * @apiSuccess {String}   status                     Statut de l'issue.
  * @apiSuccess {String}   descritpion                Description de l'issues.
  * @apiSuccess {String}   photo                      Lien vers l'image présentant l'issue.
  * @apiSuccess {String}   user                       Id du user signalant l'issue.
- * @apiSuccess {String}   _id                        Id de l'issue.
- * @apiSuccess {Object[]} action                     Tableau d'information liées au actions entreprises.
+ * @apiSuccess {Object[]} action                     Tableau d'information liées au actions effectuées.
  * @apiSuccess {object[]} localisation               Tableau d'informations liées  à la localisation.
  * @apiSuccess {string}   localisation.type          Type de géomètrie.
  * @apiSuccess {object[]} localisation.coordinates   Tableau d'informations liées  aux coordonées.
- * @apiSuccess {object[]} tags                       Tags de l'issue.
+ * @apiSuccess {String}   responsable                Information du user s'occupant de l'issue.
+ * @apiSuccess {object[]} tags                       Tableau des tags liés à l'issue.
  *
  * @apiUse CreateElementError
  * @apiUse IdNotFound
+ * @apiUse UserRequired
  */
 function putIssue() { return; }
 
@@ -766,10 +736,9 @@ function putIssue() { return; }
  *
  * @apiDescription Fonction permettant de supprimer une Issue.
  *
- * @apiParam {Number}     id            Id de l'issue.
+ * @apiParam {string}     id            Id de l'issue.
  * 
- * @apiSuccess {Number}   id            Id de l'issue supprimée.
  *
- * @apiUse CreateElementError
+ * @apiUse IdNotFound
  */
 function DeleteIssue() { return; }
