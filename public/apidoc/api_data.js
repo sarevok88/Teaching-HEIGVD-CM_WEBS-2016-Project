@@ -2703,15 +2703,15 @@ define({ "api": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "UserNotFound",
+            "field": "NoUsersFound",
             "description": "<p>Il n'y a pas de User sur votre base de donnée.</p>"
           }
         ]
       },
       "examples": [
         {
-          "title": "Réponse (exemple):",
-          "content": "HTTP/1.1 404 Not Found\n{\n  \"error\": \"User not found\"\n}",
+          "title": "Réponse (exemple):     ",
+          "content": "[]",
           "type": "json"
         }
       ]
@@ -2731,7 +2731,7 @@ define({ "api": [
     "version": "0.1.0",
     "name": "GetUserWithMostIssues",
     "group": "Users",
-    "description": "<p>Fonction permettant d'obtenir une liste de users ayant soulevé le plus d'issues.</p>",
+    "description": "<p>Fonction permettant d'obtenir le users ayant soulevé le plus d'issues.</p>",
     "parameter": {
       "fields": {
         "Parameter": [
@@ -2750,7 +2750,7 @@ define({ "api": [
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "String",
             "optional": false,
             "field": "id",
             "description": "<p>Id du user.</p>"
@@ -2759,14 +2759,14 @@ define({ "api": [
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "firstName",
+            "field": "forname",
             "description": "<p>Prénom du User.</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "name",
+            "field": "surname",
             "description": "<p>Nom du User.</p>"
           },
           {
@@ -2780,29 +2780,22 @@ define({ "api": [
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "email",
-            "description": "<p>Email du User.</p>"
+            "field": "dob",
+            "description": "<p>Date de naissance du User.</p>"
           },
           {
             "group": "Success 200",
             "type": "Date",
             "optional": false,
-            "field": "birth",
-            "description": "<p>Date de naissance du User.</p>"
+            "field": "email",
+            "description": "<p>Email du User.</p>"
           },
           {
             "group": "Success 200",
-            "type": "String",
+            "type": "Object[]",
             "optional": false,
             "field": "role",
             "description": "<p>Role du User (staff ou citoyen).</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "nbrIssues",
-            "description": "<p>Nombre d'issues soulevée par le User.</p>"
           }
         ]
       }

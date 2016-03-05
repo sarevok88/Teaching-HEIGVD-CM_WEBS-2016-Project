@@ -61,19 +61,18 @@ function getUserById() { return; }
  * @apiName GetUserWithMostIssues
  * @apiGroup Users
  *
- * @apiDescription Fonction permettant d'obtenir une liste de users ayant soulevé le plus d'issues.
+ * @apiDescription Fonction permettant d'obtenir le users ayant soulevé le plus d'issues.
  *
  * @apiParam {Nombre} nbrIssues Nombre d'Issues reliée à un User.
  *
  *
- * @apiSuccess {Number}   id            Id du user.
- * @apiSuccess {String}   firstName     Prénom du User.
- * @apiSuccess {String}   name          Nom du User.
+ * @apiSuccess {String}   id            Id du user.
+ * @apiSuccess {String}   forname       Prénom du User.
+ * @apiSuccess {String}   surname       Nom du User.
  * @apiSuccess {String}   nickname      Pseudonyme du User.
- * @apiSuccess {String}   email         Email du User.
- * @apiSuccess {Date}     birth         Date de naissance du User.
- * @apiSuccess {String}   role          Role du User (staff ou citoyen).
- * @apiSuccess {Number}   nbrIssues     Nombre d'issues soulevée par le User.
+ * @apiSuccess {String}   dob           Date de naissance du User.
+ * @apiSuccess {Date}     email         Email du User.
+ * @apiSuccess {Object[]} role          Role du User (staff ou citoyen).
  *
  * @apiError UserNotFound   Il n'y a pas de User sur votre base de donnée.
  *
@@ -102,13 +101,10 @@ function GetUserWithMostIssues() { return; }
  * @apiSuccess {Date}     birth         Date de naissance du User.
  * @apiSuccess {String}   role          Role du User (staff ou citoyen).
  *
- * @apiError UserNotFound    Il n'y a pas de User sur votre base de donnée.
+ * @apiError NoUsersFound   Il n'y a pas de User sur votre base de donnée.
  *
- * @apiErrorExample Réponse (exemple):
- *     HTTP/1.1 404 Not Found
- *     {
- *       "error": "User not found"
- *     }
+ * @apiErrorExample Réponse (exemple):     
+ *     []
  */
 function GetUserSolvedMost() { return; }
 
