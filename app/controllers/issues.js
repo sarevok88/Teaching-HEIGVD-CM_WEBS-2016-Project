@@ -127,6 +127,11 @@ router.get('/', function (req, res, next) {
     criteria.endDate = req.query.endDate;
   }
 
+  //flitre par user
+  if (req.query.userId {
+    criteria.user = req query.userId;
+  }
+
   //filtre par zone géographique
   var coordX =req.query.coordX;
   coordY = req.query.coordY;
@@ -154,30 +159,6 @@ router.get('/', function (req, res, next) {
     res.send(issues);
   });
 });
-
-/*
-// GET /api/issues/:id VERSION OBSOLÈTE, ON PASSE PAR UN ?issueId=NUMERO
-router.get('/:id', function (req, res, next) {
-
-  var issueId = req.params.id;
-
-  Issue.findById(issueId, function(err, issue) {
-    if (err) {
-      res.status(500).send(err);
-      return;
-    } else if (!issue) {
-      res.status(404).send('Issue not found');
-      return;
-    }
-
-    res.send(issue);
-  });
-});
-*/
-
-
-/**
-*/
 // PUT /api/issues/:id
 router.put('/:id', function (req, res, next) {
 
