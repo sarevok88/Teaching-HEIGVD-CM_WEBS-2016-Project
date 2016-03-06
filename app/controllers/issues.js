@@ -75,7 +75,6 @@ router.post('/', checkUser, function(req, res, next) {
 */
 
 router.get('/', function (req, res, next) {
-  console.log(req.query);
   var criteria = {};
 
   //Filtre par numero d'id
