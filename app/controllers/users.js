@@ -71,9 +71,7 @@ function countIssues(ascending, callback) {
   });
 }
 
-// /users?issues=nbrIssuesCreated
-// /users?issues=solved
-// /users?issues=unsolved&issues=unrejected
+
 // GET /api/users
 router.get('/', function (req, res, next) {
 

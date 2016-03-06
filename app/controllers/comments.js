@@ -43,7 +43,7 @@ function checkIssue(req, res, next) {
 }
 
 /**
-*création d'un nouveau comment 
+*création d'un nouveau Comment 
 */
 // POST /api/comments
 router.post('/', checkUser, function(req, res, next) {
@@ -78,6 +78,7 @@ router.get('/', function (req, res, next) {
  console.log(req.query);
   var criteria = {};
 
+  //Filtre par Id d'Issue
   if (req.query.issueId) {
     criteria.issue = req.query.issueId;
   }
@@ -94,7 +95,6 @@ router.get('/', function (req, res, next) {
 
 /**
 *récupération d'un comment via son ID
-(dans la version avec le front, on nous renvoie la view)
 */
 // GET /api/comments/:id
 router.get('/:id', function (req, res, next) {
@@ -130,12 +130,16 @@ router.put('/:id', function (req, res, next) {
       return;
     }
 
-/*
-remplir les champs qu'on peut modifier
-*/
-    comment.text = req.body.text;
-    comment.authorId = req.body.authorId;
-    comment.commentId = req.body.commentId;
+    if (req.body.text){
+      comment.text = req.body.text;
+    }
+
+    if (req.body.authorId){
+      comment.authorId = req.body.authorId;
+    }
+    if (req.body.commentId){
+      comment.commentId = req.body.commentId;
+    }
 
     
     comment.save(function(err, updatedComment) {
