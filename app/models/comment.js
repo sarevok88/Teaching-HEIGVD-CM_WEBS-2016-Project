@@ -6,7 +6,7 @@ var mongoose = require('mongoose'),
 var CommentSchema = new Schema({
   authorId: Schema.Types.ObjectId,
   text: String,
-  comment: Schema.Types.ObjectId
+  issueId: Schema.Types.ObjectId
 });
 
 CommentSchema.virtual('date')

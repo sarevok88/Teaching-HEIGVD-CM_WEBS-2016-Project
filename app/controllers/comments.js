@@ -78,6 +78,10 @@ router.get('/', function (req, res, next) {
  console.log(req.query);
   var criteria = {};
 
+  if (req.query.issueId) {
+    criteria.issue = req.query.issueId;
+  }
+
   Comment.find(criteria, function (err, comments) {
     if (err) {
       res.status(500).send(err);
