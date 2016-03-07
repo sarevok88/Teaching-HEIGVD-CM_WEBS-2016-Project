@@ -56,7 +56,7 @@ function getUser() { return; }
 function getUserById() { return; }
 
 /**
- * @api {get} /users?issues=nbrIssuesCreated 03. Get users avec le plus d'issues
+ * @api {get} /users?issues=created 03. Get users avec le plus d'issues
  * @apiVersion 0.1.0
  * @apiName GetUserWithMostIssues
  * @apiGroup Users
