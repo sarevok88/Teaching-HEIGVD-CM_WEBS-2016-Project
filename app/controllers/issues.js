@@ -75,8 +75,25 @@ router.post('/', checkUser, function(req, res, next) {
 */
 
 router.get('/', function (req, res, next) {
-  console.log(req.query);
   var criteria = {};
+
+  //Filtre par numero d'id
+  if(req.query.issueId)
+  {
+    var issueId = req.query.issueId;
+
+    Issue.findById(issueId, function(err, issue) {
+      if (err) {
+        res.status(500).send(err);
+        return;
+      } else if (!issue) {
+        res.status(404).send('Issue not found');
+        return;
+      }
+      res.send(issue);
+    });
+    return;
+  }
 
   // Filtre par issueType ?issueType={string} (aussi si plsr type)
   if (typeof(req.query.issueType) == "object" && req.query.issueType.length) {
@@ -109,6 +126,11 @@ router.get('/', function (req, res, next) {
     criteria.endDate = req.query.endDate;
   }
 
+  //flitre par user
+  if (req.query.userId) {
+    criteria.user = req.query.userId;
+  }
+
   //filtre par zone géographique
   var coordX =req.query.coordX;
   coordY = req.query.coordY;
@@ -136,35 +158,11 @@ router.get('/', function (req, res, next) {
     res.send(issues);
   });
 });
-
-/**
-*récupération d'une issue via son ID
-(dans la version avec le front, on nous renvoie la view)
-*/
-// GET /api/issues/:id
-router.get('/:id', function (req, res, next) {
-
-  var issueId = req.params.id;
-
-  Issue.findById(issueId, function(err, issue) {
-    if (err) {
-      res.status(500).send(err);
-      return;
-    } else if (!issue) {
-      res.status(404).send('Issue not found');
-      return;
-    }
-
-    res.send(issue);
-  });
-});
-
-/**
-*/
 // PUT /api/issues/:id
 router.put('/:id', function (req, res, next) {
 
   var issueId = req.params.id;
+  console.log(req.body);
 
   Issue.findById(issueId, function(err, issue) {
     if (err) {
@@ -175,17 +173,45 @@ router.put('/:id', function (req, res, next) {
       return;
     }
 
-/*
-remplir les champs qu'on peut modifier
-*/
-    issue.status = req.body.status;
-    issue.name = req.body.name;
-    issue.type = req.body.type;
-    issue.status = req.body.status;
-    issue.localisation = req.body.localisation;
-    issue.description = req.body.description;
-    issue.photo = req.body.photo;
-    issue.responsable = req.body.responsable;
+    if (req.body.name){
+      issue.name = req.body.name;
+    }
+
+    if (req.body.type){
+      issue.type = req.body.type;
+    }
+
+    if (req.body.localisation){
+      console.log("dans le if de localisation");
+      console.log(issue.localisation);
+      issue.localistation = req.body.localisation;
+    }
+
+    if (req.body.description){
+      issue.description = req.body.description;
+    }
+
+    if (req.body.photo){
+      issue.photo = req.body.photo;
+    }
+
+    if (req.body.responsable){
+      issue.responsable = req.body.responsable;
+    }
+
+    if (req.body.tags){
+      issue.tags = req.body.tags;
+    }
+
+    issue.pre('save', function(next){
+      now = new Date();
+      this.updated_at = now;
+      if ( !this.created_at ) {
+        this.created_at = now;
+      }
+      next();
+    });
+
 
     issue.save(function(err, updatedIssue) {
       if (err) {

@@ -39,14 +39,13 @@ function getUser(id, users) {
 }
 
 /**
- * Counts the number of books for each publisher.
- * If the format argument is a string or an array, only the books matching those formats are counted.
+ * Counts the number of issues for each user.
  */
 function countIssues(ascending, callback) {
 
   var aggregations = [];
 
-  // Count the number of books by publisher ID.
+  // Count the number of issues by user ID.
   aggregations.push({
     $group: {
       _id: '$user',
@@ -67,97 +66,116 @@ function countIssues(ascending, callback) {
       callback(err);
       return;
     }
-    console.log('FFFUUUUUUUUUUUUUUUU !');
     console.log(issueCounts)
     callback(undefined, issueCounts);
   });
 }
 
+
 // GET /api/users
 router.get('/', function (req, res, next) {
-  console.log('Début de la récuperation des utilisateurs');
-  console.log(req.query);
 
-  var criteria = {};
-
-  //filtre par issues issues=nbrIssuesCreated
-  if (req.query.issues) {
-    console.log('Existance d un paramètre nbrIssues');
-    criteria.nbrIssues = req.query.issues;
-    console.log('Attribution de criteria: '+ criteria.nbrIssues);
-    console.log('Récupération des issues');
-    //var offset = req.query.offset ? parseInt(req.query.offset, 10) : 0,
-    //    limit = req.query.limit ? parseInt(req.query.limit, 10) : 30;
+  //filter by issues issues=created
+  if (req.query.issues == 'created') {
+    console.log('Existance d un paramètre created');
 
     countIssues(false, function(err, issueCounts) {
-    if (err) {
-      res.status(500).send(err);
-      return;
-    }
-
-    // Extract the IDs of the users into an array.
-    var userIds = [];
-    for (var i = 0; i < issueCounts.length; i++) {
-      userIds.push(issueCounts[i]._id);
-    }
-
-    // Find the corresponding users.
-    var criteria = {
-      _id: { $in: userIds }
-    };
-
-    User.find(criteria, function(err, users) {
       if (err) {
         res.status(500).send(err);
         return;
       }
 
-      var responseBody = [];
+      // Extract the IDs of the users into an array.
+      var userIds = [];
       for (var i = 0; i < issueCounts.length; i++) {
-
-        // Serialize each publisher.
-        var result = getUser(issueCounts[i]._id, users).toJSON();
-
-        // Add the number of books.
-        result.numberOfIssues = issueCounts[i].total;
-
-        // Add the object to the response array.
-        responseBody.push(result);
+        userIds.push(issueCounts[i]._id);
       }
 
-      // Send the response
-      res.send(responseBody);
+      // Find the corresponding users.
+      criteria = {
+        _id: { $in: userIds }
+      };
+
+      User.find(criteria, function(err, users) {
+        if (err) {
+          res.status(500).send(err);
+          return;
+        }
+
+        var responseBody = [];
+        for (var i = 0; i < issueCounts.length; i++) {
+
+          // Serialize each user.
+          var result = getUser(issueCounts[i]._id, users).toJSON();
+
+          // Add the number of issues.
+          result.numberOfIssues = issueCounts[i].total;
+
+          // Add the object to the response array.
+          responseBody.push(result);
+        }
+
+        // Send the response
+       res.send(responseBody);
+      });
     });
-  });
+  }
+  if (req.query.issues == 'solved') {
+    console.log('Existance d un paramètre solved');
+
+    countIssues(false, function(err, issueCounts) {
+      if (err) {
+        res.status(500).send(err);
+        return;
+      }
+
+      // Extract the IDs of the users into an array.
+      var userIds = [];
+      for (var i = 0; i < issueCounts.length; i++) {
+        if(issueCounts[i].solved_at != ''){
+          userIds.push(issueCounts[i]._id);
+        }
+      }
+
+      // Find the corresponding users.
+      criteria = {
+        _id: { $in: userIds }
+      };
+
+      User.find(criteria, function(err, users) {
+        if (err) {
+          res.status(500).send(err);
+          return;
+        }
+
+        var responseBody = [];
+        for (var i = 0; i < issueCounts.length; i++) {
+
+          // Serialize each user.
+          var result = getUser(issueCounts[i]._id, users).toJSON();
+
+          // Add the number of issues.
+          result.numberOfIssues = issueCounts[i].total;
+
+          // Add the object to the response array.
+          responseBody.push(result);
+        }
+
+        // Send the response
+       res.send(responseBody);
+      });
+    });
+  }
+  else{
+    User.find(function (err, users) {
+      if (err) {
+        res.status(500).send(err);
+        return;
+      }
+      res.send(users);
+    });
   }
 
-  User.find(function (err, users) {
-    if (err) {
-      res.status(500).send(err);
-      return;
-    }
-    res.send(users);
-  });
-});
-
-// GET /api/users?sort=nbrIssues || Get the list of users who have created most issues.
-  router.get('/nbrIssues', function (req, res, next){
-    countIssues(function(err, issueCounts) { // handle error (if any)
-
-    var criteria = {
-      user: { $in: user }
-    };
-    User.find(criteria, function(err, users) { if (err) {
-      res.status(500).send(err);
-    return; }
-      var responseBody = [];
-      for (var i = 0; i < issueCounts.length; i++) {
-      var result = getUser(issueCounts[i]._id, users).toJSON();
-      result.numberOfIssues = issueCounts[i].total;
-      responseBody.push(result); }
-      res.send(responseBody);
-    });
-  });
 });
 
 // GET /api/users/:id

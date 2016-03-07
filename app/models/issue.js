@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
 var IssueSchema = new Schema({
-  name: String,
+  name: String, //
   created_at: Date,
   updated_at: Date,
   solved_at: Date,
