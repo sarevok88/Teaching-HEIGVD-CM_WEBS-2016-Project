@@ -2,7 +2,6 @@
 
 Course: [https://github.com/SoftEng-HEIGVD/Teaching-HEIGVD-CM_WEBS-2016](https://github.com/SoftEng-HEIGVD/Teaching-HEIGVD-CM_WEBS-2016)
 
-Each group must fork this repository to work on this course and deliver their API.
+Cette API a été faite pour un projet de reporting civique, et permet d'enregistrer des users, des issues, de commenter ces issues ainsi que de modifier ces ressources.
 
-Please **REWRITE** this README.
-It should include a brief explanation of the purpose of your API and instructions on how to run it locally.
+l'API utilise une base de donnée NoSQL MongoDB. Il vous faudra donc un serveur de base de données mongo, ainsi qu'un server applicatif node.js pour faire fonctionner la partie applicative en JS.
