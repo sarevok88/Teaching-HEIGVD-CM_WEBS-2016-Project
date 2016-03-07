@@ -127,8 +127,8 @@ router.get('/', function (req, res, next) {
   }
 
   //flitre par user
-  if (req.query.userId {
-    criteria.user = req query.userId;
+  if (req.query.userId) {
+    criteria.user = req.query.userId;
   }
 
   //filtre par zone géographique
